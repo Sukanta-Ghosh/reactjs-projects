@@ -1,2 +1,4 @@
-This repository consists of React JS core concepts.
-Application based learning approach to understand react concepts.
+### Resources
+
+- [API Urls](https://dummyjson.com/docs/products)
+- Create Vite Project: `npm create vite@latest`
