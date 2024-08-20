@@ -7,11 +7,14 @@ function ClientPagination({ productPerPage }) {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
 
+  /* totalPages: Highest no of pages need to show all fetched products */
+  const totalPages = Math.ceil(products.length / productPerPage);
+
   const fetchProducts = async () => {
     const res = await fetch(`https://dummyjson.com/products?limit=100`);
     const data = await res.json();
 
-    console.log(data);
+    console.log("Fetched Data:", data);
 
     if (data && data.products) {
       setProducts(data.products);
@@ -25,7 +28,7 @@ function ClientPagination({ productPerPage }) {
   const selectPageHandler = (selectedPage) => {
     if (
       selectedPage >= 1 &&
-      selectedPage <= Math.ceil(products.length / productPerPage) &&
+      selectedPage <= totalPages &&
       selectedPage !== page
     ) {
       setPage(selectedPage);
@@ -67,30 +70,25 @@ function ClientPagination({ productPerPage }) {
           >
             ◀
           </span>
-          {/* Here Math.ceil(products.length / productPerPage) defines total
+
+          {/* Here totalPages defines total
             no of pages */}
-          {[...Array(Math.ceil(products.length / productPerPage))].map(
-            (_, i) => {
-              return (
-                <span
-                  key={i}
-                  className={page === i + 1 ? "pagination__selected" : ""}
-                  onClick={() => selectPageHandler(i + 1)}
-                >
-                  {i + 1}
-                </span>
-              );
-            }
-          )}
+          {[...Array(totalPages)].map((_, i) => {
+            return (
+              <span
+                key={i}
+                className={page === i + 1 ? "pagination__selected" : ""}
+                onClick={() => selectPageHandler(i + 1)}
+              >
+                {i + 1}
+              </span>
+            );
+          })}
 
           {/* right arrow */}
           <span
             onClick={() => selectPageHandler(page + 1)}
-            className={
-              page < Math.ceil(products.length / productPerPage)
-                ? ""
-                : "pagination__disable"
-            }
+            className={page < totalPages ? "" : "pagination__disable"}
           >
             ▶
           </span>
