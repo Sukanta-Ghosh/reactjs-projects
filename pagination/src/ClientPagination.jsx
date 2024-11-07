@@ -3,16 +3,17 @@ import "./App.css";
 
 /* Client side pagination */
 function ClientPagination({ productPerPage }) {
-  //states
+  // States
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
 
   /* totalPages: Highest no of pages need to show all fetched products */
   const totalPages = Math.ceil(products.length / productPerPage);
 
+  // API call method
   const fetchProducts = async () => {
-    const res = await fetch(`https://dummyjson.com/products?limit=100`);
-    const data = await res.json();
+    const response = await fetch(`https://dummyjson.com/products?limit=100`);
+    const data = await response.json();
 
     console.log("Fetched Data:", data);
 
@@ -71,8 +72,7 @@ function ClientPagination({ productPerPage }) {
             ◀
           </span>
 
-          {/* Here totalPages defines total
-            no of pages */}
+          {/* Here totalPages defines total no of pages */}
           {[...Array(totalPages)].map((_, i) => {
             return (
               <span

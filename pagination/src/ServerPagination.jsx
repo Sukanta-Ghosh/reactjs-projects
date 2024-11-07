@@ -8,13 +8,14 @@ function ServerPagination({ productPerPage }) {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
+  // API call method
   const fetchProducts = async () => {
-    const res = await fetch(
+    const response = await fetch(
       `https://dummyjson.com/products?limit=${productPerPage}&skip=${
         page * productPerPage - productPerPage
       }`
     );
-    const data = await res.json();
+    const data = await response.json();
 
     console.log(data);
 
@@ -44,6 +45,8 @@ function ServerPagination({ productPerPage }) {
       <h1>Server-side Pagination</h1>
       {products.length === 0 && <h2 className="flex-center">Loading...</h2>}
       <h2>Total Products: {productPerPage * totalPages}</h2>
+
+      {/* Products section */}
       {products.length > 0 && (
         <div className="products">
           {products.map((prod) => {

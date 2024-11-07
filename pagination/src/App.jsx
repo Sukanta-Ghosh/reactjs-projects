@@ -17,6 +17,7 @@ function App() {
           Server Pagination
         </Link>
       </div>
+
       {/* Routes */}
       <Routes>
         <Route
