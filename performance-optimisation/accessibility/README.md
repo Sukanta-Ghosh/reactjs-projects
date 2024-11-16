@@ -1,8 +1,10 @@
-# React + Vite
+### In this lesson we will learn the essentials of Accessibility for frontend interviews:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Semantic HTML
+- Color Contrasts
+- Alt Text
+- Labels and Placeholders
+- ARIA Tags
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+https://webaim.org/
+Render function in React creates a node tree and updates it based on the changes occur in the data model.
