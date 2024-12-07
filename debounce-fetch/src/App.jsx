@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-//https://demo.dataverse.org/api/search?q=${value}
+const basr_url = "https://demo.dataverse.org/api/search"; // seach: ?q=value
 export default function App() {
   const [input, setInput] = useState("");
   const [list, setList] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      const rawData = await fetch(
-        `https://demo.dataverse.org/api/search?q=${input}`
-      );
+      const rawData = await fetch(`${basr_url}?q=${input}`);
       const jsonData = await rawData.json();
 
       console.log("Fetched data:", jsonData.data.items);
@@ -35,7 +33,7 @@ export default function App() {
   return (
     <div className="app">
       <input
-        placeholder="Search Input.."
+        placeholder="Search keyword.."
         onChange={(e) => setInput(e.target.value)}
       />
       {list.length > 0 && (
