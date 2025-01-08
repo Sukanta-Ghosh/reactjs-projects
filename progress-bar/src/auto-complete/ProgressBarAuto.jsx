@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const MAX = 100;
 const MIN = 0;
-export default function ProgressBar({ value = 0, onComplete = () => {} }) {
+export default function ProgressBarAuto({ value = 0, onComplete = () => {} }) {
   const [percent, setPercent] = useState(value);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function ProgressBar({ value = 0, onComplete = () => {} }) {
   }, [value]);
 
   return (
-    <div className="progress">
+    <div className="progressAuto">
       <span
         style={{
           color: percent > 49 ? "white" : "black",

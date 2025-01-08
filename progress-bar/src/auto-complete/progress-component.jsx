@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import ProgressBar from "./components/ProgressBar";
-import "./index.css";
+import ProgressBarAuto from "./ProgressBarAuto";
 
-export default function App() {
+export default function AutoProgressBar() {
   const [value, setValue] = useState(0);
   const [success, setSuccess] = useState(false);
 
@@ -14,8 +13,8 @@ export default function App() {
 
   return (
     <div className="app">
-      <span>Progress Bar</span>
-      <ProgressBar value={value} onComplete={() => setSuccess(true)} />
+      <h3>Progress Bar Auto-complete</h3>
+      <ProgressBarAuto value={value} onComplete={() => setSuccess(true)} />
       <span>{success ? "Complete!" : "Loading..."}</span>
     </div>
   );

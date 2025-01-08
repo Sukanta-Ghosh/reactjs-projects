@@ -1,0 +1,78 @@
+body {
+  font-family: sans-serif;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flex-items {
+  padding: 5px;
+}
+
+.error {
+  margin: 0 0 24px 0;
+  color: red;
+}
+
+.wrapper {
+  width: 100%;
+  height: 20px;
+  border-radius: 5px;
+  background-color: lightgrey;
+}
+
+.progress {
+  height: 100%;
+  border-radius: 5px;
+  background-color: green;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: grey;
+  padding: 5px;
+  height: 8vh;
+}
+
+Link {
+  text-decoration: none;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+
+.progressAuto {
+  position: relative;
+  /* with scale */
+  height: 20px;
+  width: 500px;
+  background-color: rgb(233, 236, 239);
+  border: 1px solid #c5c5c5;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.progressAuto div {
+  background-color: #00c251;
+  color: #fff;
+  height: 100%;
+  text-align: center;
+}
+
+.progressAuto span {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}

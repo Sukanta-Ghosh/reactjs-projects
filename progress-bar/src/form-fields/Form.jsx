@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./App.css";
+import "../App.css";
 import ProgressBar from "./ProgressBar";
 
-export default function App() {
+export default function Form() {
   const documentCategories = ["XL", "PDF"];
   const documentTypes = ["Resume", "Adhar"];
 
