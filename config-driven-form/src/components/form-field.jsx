@@ -17,7 +17,7 @@ const componentMapping = {
   SLIDER: Slider,
 };
 
-const FormField = ({field, onChange}) => {
+const FormField = ({ field, onChange }) => {
   const Component = componentMapping[field.component];
 
   if (Component) {
@@ -27,7 +27,7 @@ const FormField = ({field, onChange}) => {
           {...field}
           onChange={(value) => onChange(field.name, value)}
         />
-        {field?.error && <p style={{color: "red"}}>{field?.error}</p>}
+        {field?.error && <p style={{ color: "red" }}>{field?.error}</p>}
       </React.Fragment>
     );
   }

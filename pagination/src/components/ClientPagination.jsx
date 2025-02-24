@@ -1,33 +1,30 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 
-/* Server side Pagination */
-function ServerPagination({ productPerPage }) {
-  //states
+const url = "https://dummyjson.com/products?limit=100";
+/* Client side pagination */
+function ClientPagination({ productPerPage }) {
+  // States
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+
+  /* totalPages: Highest no of pages need to show all fetched products */
+  const totalPages = Math.ceil(products.length / productPerPage);
 
   // API call method
   const fetchProducts = async () => {
-    const response = await fetch(
-      `https://dummyjson.com/products?limit=${productPerPage}&skip=${
-        page * productPerPage - productPerPage
-      }`
-    );
+    const response = await fetch(url);
     const data = await response.json();
 
-    console.log(data);
+    console.log("Fetched Data:", data);
 
     if (data && data.products) {
       setProducts(data.products);
-      setTotalPages(Math.ceil(data.total / productPerPage));
     }
   };
 
   useEffect(() => {
     fetchProducts();
-  }, [page]);
+  }, []);
 
   const selectPageHandler = (selectedPage) => {
     if (
@@ -41,22 +38,26 @@ function ServerPagination({ productPerPage }) {
 
   return (
     <div>
-      {/* Product display section */}
-      <h1>Server-side Pagination</h1>
+      <h1>Client-side Pagination</h1>
       {products.length === 0 && <h2 className="flex-center">Loading...</h2>}
-      <h2>Total Products: {productPerPage * totalPages}</h2>
-
-      {/* Products section */}
+      {/* Product display section */}
+      <h2>Total Products: {products.length}</h2>
       {products.length > 0 && (
         <div className="products">
-          {products.map((prod) => {
-            return (
-              <span className="products__single" key={prod.id}>
-                <img src={prod.thumbnail} alt={prod.title} /> {/* alt is imp */}
-                <span className="product__title">{prod.title}</span>
-              </span>
-            );
-          })}
+          {products
+            .slice(
+              page * productPerPage - productPerPage,
+              page * productPerPage
+            )
+            .map((prod) => {
+              return (
+                <span className="products__single" key={prod.id}>
+                  <img src={prod.thumbnail} alt={prod.title} />{" "}
+                  {/* alt is imp */}
+                  <span className="product__title">{prod.title}</span>
+                </span>
+              );
+            })}
         </div>
       )}
 
@@ -70,8 +71,8 @@ function ServerPagination({ productPerPage }) {
           >
             ◀
           </span>
-          {/* Here products.length / productPerPage defines total
-            no of pages */}
+
+          {/* Here totalPages defines total no of pages */}
           {[...Array(totalPages)].map((_, i) => {
             return (
               <span
@@ -97,4 +98,4 @@ function ServerPagination({ productPerPage }) {
   );
 }
 
-export default ServerPagination;
+export default ClientPagination;

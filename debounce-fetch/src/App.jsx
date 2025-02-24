@@ -30,6 +30,7 @@ export default function App() {
       }, [delay]);
     };
   }
+
   return (
     <div className="app">
       <input

@@ -43,6 +43,7 @@ Link {
   text-decoration: none;
 }
 
+/* Progress Bar auto */
 .app {
   display: flex;
   flex-direction: column;

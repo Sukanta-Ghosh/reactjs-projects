@@ -11,11 +11,17 @@ export default function AutoProgressBar() {
     }, 20);
   }, []);
 
+  const handleRefresh = () => {
+    setValue(0);
+    setSuccess(false);
+  };
+
   return (
     <div className="app">
       <h3>Progress Bar Auto-complete</h3>
       <ProgressBarAuto value={value} onComplete={() => setSuccess(true)} />
       <span>{success ? "Complete!" : "Loading..."}</span>
+      {success && <button onClick={handleRefresh}>Refresh</button>}
     </div>
   );
 }

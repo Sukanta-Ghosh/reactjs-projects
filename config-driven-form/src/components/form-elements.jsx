@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-const TextFeild = ({name, label, isRequired, type, onChange}) => {
+const TextFeild = ({ name, label, isRequired, type, onChange }) => {
   const handleBlur = (e) => {
     onChange(e.target.value);
   };
@@ -16,7 +16,7 @@ const TextFeild = ({name, label, isRequired, type, onChange}) => {
   );
 };
 
-const Checkbox = ({name, label, isRequired, onChange}) => {
+const Checkbox = ({ name, label, isRequired, onChange }) => {
   return (
     <div className="inputContainer">
       <input
@@ -32,10 +32,10 @@ const Checkbox = ({name, label, isRequired, onChange}) => {
   );
 };
 
-const RadioButton = ({name, label, options, isRequired, onChange}) => {
+const RadioButton = ({ name, label, options, isRequired, onChange }) => {
   return (
     <div className="inputContainer">
-      <label>
+      <label htmlFor={name}>
         {label}
         {isRequired && <span>*</span>}
       </label>
@@ -58,7 +58,7 @@ const RadioButton = ({name, label, options, isRequired, onChange}) => {
   );
 };
 
-const DatePicker = ({name, label, isRequired, onChange}) => {
+const DatePicker = ({ name, label, isRequired, onChange }) => {
   return (
     <div className="inputContainer">
       <label htmlFor={name}>
@@ -76,7 +76,7 @@ const DatePicker = ({name, label, isRequired, onChange}) => {
   );
 };
 
-const Slider = ({name, label, minValue, maxValue, isRequired, onChange}) => {
+const Slider = ({ name, label, minValue, maxValue, isRequired, onChange }) => {
   return (
     <div className="inputContainer">
       <label htmlFor={name}>
@@ -95,4 +95,4 @@ const Slider = ({name, label, minValue, maxValue, isRequired, onChange}) => {
   );
 };
 
-export {TextFeild, Checkbox, RadioButton, DatePicker, Slider};
+export { TextFeild, Checkbox, RadioButton, DatePicker, Slider };

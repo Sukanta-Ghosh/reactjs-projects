@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CitySearch from "./components/CitySearch";
+import CitySearch from "./text-highlight-components/CitySearch";
 
 export default function App() {
   const cities = ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix"];

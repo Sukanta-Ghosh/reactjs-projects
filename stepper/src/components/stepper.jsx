@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 
-const CheckoutStepper = ({stepsConfig = []}) => {
+const CheckoutStepper = ({ stepsConfig = [] }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isComplete, setIsComplete] = useState(false);
   const [margins, setMargins] = useState({
@@ -19,7 +19,7 @@ const CheckoutStepper = ({stepsConfig = []}) => {
   }, [stepRef, stepsConfig.length]);
 
   if (!stepsConfig.length) {
-    return <></>;
+    return <div></div>;
   }
 
   const handleNext = () => {
@@ -40,7 +40,7 @@ const CheckoutStepper = ({stepsConfig = []}) => {
   const ActiveComponent = stepsConfig[currentStep - 1]?.Component;
 
   return (
-    <>
+    <div>
       <div className="stepper">
         {stepsConfig.map((step, index) => {
           return (
@@ -73,7 +73,7 @@ const CheckoutStepper = ({stepsConfig = []}) => {
         >
           <div
             className="progress"
-            style={{width: `${calculateProgressBarWidth()}%`}}
+            style={{ width: `${calculateProgressBarWidth()}%` }}
           ></div>
         </div>
       </div>
@@ -85,7 +85,7 @@ const CheckoutStepper = ({stepsConfig = []}) => {
           {currentStep === stepsConfig.length ? "Finish" : "Next"}
         </button>
       )}
-    </>
+    </div>
   );
 };
 

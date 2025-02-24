@@ -73,6 +73,15 @@ export default function Form() {
     setPercent(percent);
   };
 
+  // Example Function not in used
+  // Calculate progress based on completed fields
+  const calculateProgress = () => {
+    const filledFields = Object.values(formData).filter(
+      (field) => field.trim() !== ""
+    ).length;
+    return (filledFields / 4) * 100; // 4 fields in total
+  };
+
   return (
     <form onSubmit={(e) => e.preventDefault()} className="flex-container">
       <div className="flex-items">Progress Bar: {percent}%</div>

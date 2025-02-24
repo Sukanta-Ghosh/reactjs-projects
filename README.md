@@ -1,6 +1,7 @@
 ### Docs
 
-- Create Vite Project: `npm create vite@latest` 5.0.0
+- Create Vite Project: `npm create vite@latest`
+- Create Vite Project: `npm create vite@5.0.0`
 - Run vite Project: `npm run dev`
 
 ### Content

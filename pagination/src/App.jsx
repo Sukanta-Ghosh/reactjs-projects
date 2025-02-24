@@ -1,7 +1,8 @@
 import "./App.css";
 import { Route, Routes, Link, Navigate } from "react-router-dom";
-import ClientPagination from "./ClientPagination";
-import ServerPagination from "./ServerPagination";
+import ClientPagination from "./components/ClientPagination";
+import ServerPagination from "./components/ServerPagination";
+import TruncatePagination from "./components/truncate-pagination/TruncatePagination";
 
 // Config: productPerPage for pagination
 const productPerPage = 9;
@@ -15,6 +16,9 @@ function App() {
         </Link>
         <Link to="/server" style={linkStyle}>
           Server Pagination
+        </Link>
+        <Link to="/truncate-pagination" style={linkStyle}>
+          Truncate Pagination
         </Link>
       </div>
 
@@ -37,6 +41,15 @@ function App() {
             <ServerPagination
               productPerPage={productPerPage}
             ></ServerPagination>
+          }
+        ></Route>
+
+        <Route
+          path="/truncate-pagination"
+          element={
+            <TruncatePagination
+              productPerPage={productPerPage}
+            ></TruncatePagination>
           }
         ></Route>
       </Routes>
