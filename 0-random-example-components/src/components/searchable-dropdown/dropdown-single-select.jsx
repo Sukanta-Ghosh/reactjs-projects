@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const CustomDropdown = () => {
+const DropdownSingle = () => {
   const [inputValue, setInputValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [filteredOptions, setFilteredOptions] = useState([]);
@@ -86,4 +86,4 @@ const CustomDropdown = () => {
   );
 };
 
-export default CustomDropdown;
+export default DropdownSingle;

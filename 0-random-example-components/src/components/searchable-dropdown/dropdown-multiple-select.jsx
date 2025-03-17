@@ -10,7 +10,8 @@ const optionsData = [
   { id: 6, option: "orangeshake", selected: false },
 ];
 const config = ["single", "multiple"];
-const MainComponent = () => {
+
+const DropdownMultiple = () => {
   const [inputValue, setInputValue] = useState("");
   const [openDrop, setOpenDrop] = useState(false);
   const [data, setData] = useState([]);
@@ -122,4 +123,4 @@ const MainComponent = () => {
   );
 };
 
-export default MainComponent;
+export default DropdownMultiple;

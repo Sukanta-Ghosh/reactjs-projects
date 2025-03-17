@@ -1,0 +1,14 @@
+.header {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-around;
+    padding-bottom: 10px;
+}
+
+/* Todo App */
+.todo-app {
+    max-width: "400px";
+    margin: "auto";
+    text-align: "center";
+}   
