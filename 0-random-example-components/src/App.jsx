@@ -1,23 +1,13 @@
-import DropdownMultiple from "./components/searchable-dropdown/dropdown-multiple-select";
-import DropdownSingle from "./components/searchable-dropdown/dropdown-single-select";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import DropdownMultiple from "./projects/searchable-dropdown/dropdown-multiple-select";
+import DropdownSingle from "./projects/searchable-dropdown/dropdown-single-select";
+import Todo from "./projects/todo-app/Todo";
 import "./App.css";
 import "./searchable-dropdown.css";
-import Header from "./components/header";
-import Todo from "./components/todo-app/Todo";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
   return <RouterProvider router={router} />;
 }
-
-// function App() {
-//   return (
-//     <div>
-//       <DropdownSingle />
-//       <DropdownMultiple />
-//     </div>
-//   );
-// }
 
 const router = createBrowserRouter([
   {
