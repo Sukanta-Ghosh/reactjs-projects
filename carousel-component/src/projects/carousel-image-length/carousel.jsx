@@ -10,9 +10,14 @@ const Carousel = ({
   onImgClick = () => {},
   imgPerSlide = 1,
 }) => {
-  const imgRef = useRef(null);
+  // state
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imgWidth, setImgWidth] = useState(0);
+  // ref
+  const imgRef = useRef(null);
+
+  // variable
+  let sliceLimit = imageLimit > images.length ? images.length : imageLimit;
 
   useEffect(() => {
     if (images.length > 0) {
@@ -21,17 +26,17 @@ const Carousel = ({
   }, [images]);
 
   const goToPrev = () => {
+    /* imageLimit - imgPerSlide => This should be last currentIndex after currentIndex reaches 0 */
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? imageLimit - 1 : prevIndex - 1
+      prevIndex === 0 ? imageLimit - imgPerSlide : prevIndex - 1
     );
   };
   const goToNext = () => {
+    /* imageLimit - imgPerSlide => This should be last currentIndex after again reset with 0 index */
     setCurrentIndex((prevIndex) =>
-      prevIndex === imageLimit - 1 ? 0 : prevIndex + 1
+      prevIndex === imageLimit - imgPerSlide ? 0 : prevIndex + 1
     );
   };
-
-  console.log("imgRef?.current?.offsetWidth:", imgRef?.current?.offsetWidth);
 
   return isLoading ? (
     <div>Loading...</div>
@@ -41,21 +46,19 @@ const Carousel = ({
         className="image-container"
         style={{ transform: `translateX(-${currentIndex * imgWidth}px)` }}
       >
-        {images
-          .slice(0, imageLimit > images.length ? images.length : imageLimit)
-          .map((image, index) => {
-            return (
-              <img
-                onLoad={() => setImgWidth(imgRef?.current?.offsetWidth)}
-                ref={imgRef}
-                key={image.id}
-                src={image.thumbnail || image.url}
-                onClick={() => onImgClick(image, index)}
-                alt={image.title}
-                className="image"
-              />
-            );
-          })}
+        {images.slice(0, sliceLimit).map((image, index) => {
+          return (
+            <img
+              onLoad={() => setImgWidth(imgRef?.current?.offsetWidth)}
+              ref={imgRef}
+              key={image.id}
+              src={image.thumbnail || image.url}
+              onClick={() => onImgClick(image, index)}
+              alt={image.title}
+              className="image"
+            />
+          );
+        })}
       </div>
       {customPrevButton instanceof Function ? (
         customPrevButton(goToPrev)
