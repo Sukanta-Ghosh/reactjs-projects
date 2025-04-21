@@ -9,3 +9,7 @@
 ### Resources
 
 - [API Urls](https://dummyjson.com/docs/products)
+
+### Tips
+
+- Divide into components and put all components in same file in interview.

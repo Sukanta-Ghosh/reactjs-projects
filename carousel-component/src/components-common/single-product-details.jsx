@@ -17,7 +17,7 @@ export async function singleProductsLoader({ params }) {
   }
 }
 
-const ProductDetails = () => {
+const SingleProductDetails = () => {
   const product = useLoaderData();
 
   return (
@@ -33,4 +33,4 @@ const ProductDetails = () => {
   );
 };
 
-export default ProductDetails;
+export default SingleProductDetails;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../../carousel-routing.css";
-import ProductDisplay from "./product-display";
+import ProductDisplay from "./products-display";
 import { useLoaderData } from "react-router-dom";
 
 // config

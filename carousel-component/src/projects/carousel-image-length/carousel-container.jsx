@@ -11,13 +11,17 @@
 
 import { useEffect, useState } from "react";
 import Carousel from "./carousel";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
-const imgLimit = 8;
+// config
+const imgLimitAPI = 8;
+const imageLimit = 8;
+const imgPerSlide = 3;
+
 export async function imageLoader() {
   try {
     const response = await fetch(
-      `https://jsonplaceholder.typicode.com/photos?_limit=${imgLimit}`
+      `https://dummyjson.com/products?limit=${imgLimitAPI}`
     );
     const data = await response.json();
     return data;
@@ -29,8 +33,12 @@ export async function imageLoader() {
 const CarouselImages = () => {
   // const [images, setImages] = useState([]);
   // const [loading, setLoading] = useState(false);
-  const images = useLoaderData();
-  console.log("images:", images);
+  const data = useLoaderData();
+  const navigate = useNavigate();
+
+  const onImgClick = (image, index) => {
+    navigate(`/products/${image.id}`);
+  };
 
   /* // fetch Image
   const fetchImages = async (imgLimit) => {
@@ -55,11 +63,11 @@ const CarouselImages = () => {
   return (
     <div className="carousel-container">
       <Carousel
-        images={images}
+        images={data.products}
         isLoading={false}
-        onImgClick={(image, index) => {}}
-        imgPerSlide={2}
-        imageLimit={4}
+        onImgClick={onImgClick}
+        imgPerSlide={imgPerSlide}
+        imageLimit={imageLimit}
         customPrevButton={(onClick) => (
           <button
             className="btn prev"
@@ -75,7 +83,7 @@ const CarouselImages = () => {
             style={{ background: "blue" }}
             onClick={onClick}
           >
-            Prev
+            Next
           </button>
         )}
       />

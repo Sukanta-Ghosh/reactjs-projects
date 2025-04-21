@@ -6,10 +6,10 @@ import CarouselImages, {
 } from "./projects/carousel-image-length/carousel-container";
 import CarouselProducts, {
   productsLoader,
-} from "./projects/carousel-with-routing/carousel-products";
-import ProductDetails, {
+} from "./projects/carousel-non-modular-compo/carousel-container-products";
+import SingleProductDetails, {
   singleProductsLoader,
-} from "./projects/carousel-with-routing/product-details";
+} from "./components-common/single-product-details";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/products/:productId",
-        element: <ProductDetails />,
+        element: <SingleProductDetails />,
         loader: singleProductsLoader,
       },
       {

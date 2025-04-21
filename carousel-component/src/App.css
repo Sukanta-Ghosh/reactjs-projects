@@ -1,6 +1,7 @@
 .carousel-container {
   height: 40vh;
   width: 50vh;
+  margin: 10px;
 }
 
 .carousel {
@@ -19,6 +20,7 @@
 
 .image {
   height: 100%;
+  border: 1px solid black;
 }
 
 .btn {
@@ -39,6 +41,7 @@
   right: 0;
 }
 
+/* carousel-with-routing css */
 .header {
   display: flex;
   gap: 20px;

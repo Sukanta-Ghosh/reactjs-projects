@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { FixedSizeList as List } from "react-window";
 
 /* eslint-disable react/prop-types */
 const Carousel = ({
@@ -11,6 +12,7 @@ const Carousel = ({
   imgPerSlide = 1,
 }) => {
   const imgRef = useRef(null);
+  const listRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imgWidth, setImgWidth] = useState(0);
 
@@ -31,7 +33,24 @@ const Carousel = ({
     );
   };
 
-  console.log("imgRef?.current?.offsetWidth:", imgRef?.current?.offsetWidth);
+  const Column = ({ index, style }) => (
+    <div style={style}>
+      <img
+        onLoad={() => setImgWidth(imgRef?.current?.offsetWidth)}
+        ref={imgRef}
+        key={images[index].id}
+        src={images[index].thumbnail || images[index].url}
+        onClick={() => onImgClick(images[index], index)}
+        alt={images[index].title}
+        className="image"
+      />
+    </div>
+  );
+
+  useEffect(() => {
+    console.log(currentIndex * imgWidth);
+    listRef.current.scrollTo(currentIndex * imgWidth);
+  }, [currentIndex]);
 
   return isLoading ? (
     <div>Loading...</div>
@@ -39,23 +58,18 @@ const Carousel = ({
     <div className="carousel" style={{ width: imgPerSlide * imgWidth }}>
       <div
         className="image-container"
-        style={{ transform: `translateX(-${currentIndex * imgWidth}px)` }}
+        // style={{transform: `translateX(-${currentIndex * imgWidth}px)`}}
       >
-        {images
-          .slice(0, imageLimit > images.length ? images.length : imageLimit)
-          .map((image, index) => {
-            return (
-              <img
-                onLoad={() => setImgWidth(imgRef?.current?.offsetWidth)}
-                ref={imgRef}
-                key={image.id}
-                src={image.thumbnail || image.url}
-                onClick={() => onImgClick(image, index)}
-                alt={image.title}
-                className="image"
-              />
-            );
-          })}
+        <List
+          ref={listRef}
+          height={400}
+          itemCount={images.length}
+          itemSize={400}
+          layout="horizontal"
+          width={800}
+        >
+          {Column}
+        </List>
       </div>
       {customPrevButton instanceof Function ? (
         customPrevButton(goToPrev)
