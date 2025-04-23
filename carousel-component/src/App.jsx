@@ -1,12 +1,11 @@
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import AppLayout from "./layouts/app-layout";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
 import CarouselImages, {
   imageLoader,
-} from "./projects/carousel-image-length/carousel-container";
-import CarouselProducts, {
-  productsLoader,
-} from "./projects/carousel-non-modular-compo/carousel-container-products";
+} from "./projects/carousel-products-container";
+
 import SingleProductDetails, {
   singleProductsLoader,
 } from "./components-common/single-product-details";
@@ -21,18 +20,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/products",
-        element: <CarouselProducts />,
-        loader: productsLoader,
+        element: <CarouselImages />,
+        loader: imageLoader,
       },
       {
         path: "/products/:productId",
         element: <SingleProductDetails />,
         loader: singleProductsLoader,
-      },
-      {
-        path: "/image",
-        element: <CarouselImages />,
-        loader: imageLoader,
       },
     ],
   },

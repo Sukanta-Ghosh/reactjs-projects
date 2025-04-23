@@ -1,3 +1,3 @@
 ### Projects
 
-- [carousel-non-modular-compo](src/projects/carousel-non-modular-compo)
+- [carousel-modular-component](src/projects/carousel-modular-component) => Main component
