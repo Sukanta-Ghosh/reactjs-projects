@@ -63,3 +63,8 @@ body {
 .star.active {
   color: orange;
 }
+
+/* .category-list {
+  display: flex;
+  flex-direction: column;
+} */

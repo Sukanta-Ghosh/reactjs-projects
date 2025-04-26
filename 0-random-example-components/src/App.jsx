@@ -4,6 +4,7 @@ import DropdownSingle from "./projects/searchable-dropdown/dropdown-single-selec
 import Todo from "./projects/todo-app/Todo";
 import "./App.css";
 import "./searchable-dropdown.css";
+import Header from "./layouts/header";
 
 function App() {
   return <RouterProvider router={router} />;

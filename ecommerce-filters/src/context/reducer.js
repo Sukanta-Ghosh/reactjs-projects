@@ -11,22 +11,36 @@ export const shoppingCartReducer = (state, action) => {
   }
 };
 
+export const filterInitialState = {
+  byStock: false,
+  byRating: 0,
+  byCategories: [],
+  searchQuery: "",
+};
 export const filterReducer = (state, action) => {
   switch (action.type) {
     case "SORT_BY_PRICE":
-      return {...state, sort: action.payload};
+      return { ...state, sort: action.payload };
+
     case "FILTER_BY_STOCK":
-      return {...state, byStock: JSON.parse(action.payload)};
+      return { ...state, byStock: JSON.parse(action.payload) };
+
     case "FILTER_BY_RATING":
-      return {...state, byRating: action.payload};
+      return { ...state, byRating: action.payload };
+
     case "FILTER_BY_SEARCH":
-      return {...state, searchQuery: action.payload};
+      return { ...state, searchQuery: action.payload };
+
+    case "FILTER_BY_CATEGORY":
+      let { checked, checkedCategory } = action.payload;
+
+      let newSelectedCategories = checked
+        ? [...state.byCategories, checkedCategory]
+        : state.byCategories.filter((category) => category !== checkedCategory);
+      return { ...state, byCategories: newSelectedCategories };
+
     case "CLEAR_FILTERS":
-      return {
-        byStock: false,
-        byRating: 0,
-        searchQuery: "",
-      };
+      return filterInitialState;
 
     default:
       return state;

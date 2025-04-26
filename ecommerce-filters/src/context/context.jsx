@@ -1,23 +1,35 @@
 /* eslint-disable react/prop-types */
 
-import {createContext, useContext, useEffect, useReducer} from "react";
-import {filterReducer, shoppingCartReducer} from "./reducer";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
+import {
+  filterInitialState,
+  filterReducer,
+  shoppingCartReducer,
+} from "./reducer";
 
 const ShoppingCart = createContext();
 
-const Context = ({children}) => {
+const Context = ({ children }) => {
   // products state
   const [state, dispatch] = useReducer(shoppingCartReducer, {
     products: [],
   });
 
-  const [filterState, filterDispatch] = useReducer(filterReducer, {
-    byStock: false,
-    byRating: 0,
-    searchQuery: "",
-  });
+  const [isLoading, setisLoading] = useState(false);
+
+  const [filterState, filterDispatch] = useReducer(
+    filterReducer,
+    filterInitialState
+  );
 
   const fetchProducts = async () => {
+    setisLoading(true);
     const res = await fetch(`/products.json`);
     const data = await res.json();
 
@@ -27,6 +39,7 @@ const Context = ({children}) => {
         payload: data.products,
       });
     }
+    setisLoading(false);
   };
 
   useEffect(() => {
@@ -35,7 +48,7 @@ const Context = ({children}) => {
 
   return (
     <ShoppingCart.Provider
-      value={{state, dispatch, filterState, filterDispatch}}
+      value={{ state, dispatch, isLoading, filterState, filterDispatch }}
     >
       {children}
     </ShoppingCart.Provider>
