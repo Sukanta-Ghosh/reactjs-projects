@@ -1,26 +1,27 @@
-import {useState} from "react";
+import { useState } from "react";
 
 const useCommentTree = (initialComments) => {
   const [comments, setComments] = useState(initialComments);
 
-  const insertNode = (tree, commentId, content) => {
+  // tree traversal
+  const insertNode = (tree, parentCommentId, newComment) => {
     return tree.map((comment) => {
-      if (comment.id === commentId) {
+      if (comment.id === parentCommentId) {
         return {
           ...comment,
-          replies: [...comment.replies, content],
+          replies: [...comment.replies, newComment],
         };
       } else if (comment.replies && comment.replies.length > 0) {
         return {
           ...comment,
-          replies: insertNode(comment.replies, commentId, content),
+          replies: insertNode(comment.replies, parentCommentId, newComment),
         };
       }
       return comment;
     });
   };
 
-  const insertComment = (commentId, content) => {
+  const insertComment = (parentCommentId, content) => {
     const newComment = {
       id: Date.now(),
       content,
@@ -29,12 +30,12 @@ const useCommentTree = (initialComments) => {
       replies: [],
     };
 
-    if (commentId) {
+    if (parentCommentId) {
       setComments((prevComments) =>
-        insertNode(prevComments, commentId, newComment)
+        insertNode(prevComments, parentCommentId, newComment)
       );
     } else {
-      setComments((prevComments) => [newComment, ...prevComments]);
+      setComments((prevComments) => [...prevComments, newComment]);
     }
   };
 
@@ -75,52 +76,51 @@ const useCommentTree = (initialComments) => {
     setComments((prevComments) => deleteNode(prevComments, commentId));
   };
 
-  // const sortNodes = (tree, sortOrder) => {
-  //   return tree.slice().sort((a, b) => {
-  //     if (sortOrder === "newest") {
-  //       return new Date(b.timestamp) - new Date(a.timestamp);
-  //     } else if (sortOrder === "oldest") {
-  //       return new Date(a.timestamp) - new Date(b.timestamp);
-  //     } else if (sortOrder === "most-voted") {
-  //       return b.votes - a.votes;
-  //     }
-  //     return 0;
-  //   });
-  // };
+  const sortNodes = (tree, sortOrder) => {
+    return tree.slice().sort((a, b) => {
+      if (sortOrder === "newest") {
+        return new Date(b.timestamp) - new Date(a.timestamp);
+      } else if (sortOrder === "oldest") {
+        return new Date(a.timestamp) - new Date(b.timestamp);
+      } else if (sortOrder === "most-voted") {
+        return b.votes - a.votes;
+      }
+      return 0;
+    });
+  };
 
-  // const sortComments = (sortOrder) => {
-  //   setComments((prevComments) => sortNodes(prevComments, sortOrder));
-  // };
+  const sortComments = (sortOrder) => {
+    setComments((prevComments) => sortNodes(prevComments, sortOrder));
+  };
 
-  // const upDownVote = (tree, upvote, commentId) => {
-  //   return tree.map((comment) => {
-  //     if (comment.id === commentId) {
-  //       return {
-  //         ...comment,
-  //         votes: upvote ? comment.votes + 1 : comment.votes - 1,
-  //       };
-  //     } else if (comment.replies && comment.replies.length > 0) {
-  //       console.log("here");
-  //       return {
-  //         ...comment,
-  //         replies: upDownVote(comment.replies, upvote, commentId),
-  //       };
-  //     }
-  //     return comment;
-  //   });
-  // };
+  const upDownVote = (tree, upvote, commentId) => {
+    return tree.map((comment) => {
+      if (comment.id === commentId) {
+        return {
+          ...comment,
+          votes: upvote ? comment.votes + 1 : comment.votes - 1,
+        };
+      } else if (comment.replies && comment.replies.length > 0) {
+        return {
+          ...comment,
+          replies: upDownVote(comment.replies, upvote, commentId),
+        };
+      }
+      return comment;
+    });
+  };
 
-  // const upDownVoteComment = (upvote = true, commentId) => {
-  //   setComments((prevComments) => upDownVote(prevComments, upvote, commentId));
-  // };
+  const upDownVoteComment = (upvote = true, commentId) => {
+    setComments((prevComments) => upDownVote(prevComments, upvote, commentId));
+  };
 
   return {
     comments,
     insertComment,
     editComment,
     deleteComment,
-    // sortComments,
-    // upDownVoteComment,
+    sortComments,
+    upDownVoteComment,
   };
 };
 

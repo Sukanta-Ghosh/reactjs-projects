@@ -1,27 +1,29 @@
 /* eslint-disable react/prop-types */
-import {useState} from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Comment = ({
   comment = {},
   onSubmitComment = () => {},
   onEditComment = () => {},
   onDeleteComment = () => {},
-  // onUpvoteComment = () => {},
-  // onDownvoteComment = () => {},
+  onUpvoteComment = () => {},
+  onDownvoteComment = () => {},
 }) => {
+  /* states */
   const [expand, setExpand] = useState(false);
   const [replyContent, setReplyContent] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
 
-  // const replyTextareaRef = useRef(null);
-  // const editTextareaRef = useRef(null);
+  const replyTextareaRef = useRef(null);
+  const editTextareaRef = useRef(null);
 
-  // useEffect(() => {
-  //   if (editMode) editTextareaRef.current.focus();
-  //   if (expand) replyTextareaRef.current.focus();
-  // }, [editMode, expand]);
+  useEffect(() => {
+    if (editMode) editTextareaRef.current.focus();
+    if (expand) replyTextareaRef.current.focus();
+  }, [editMode, expand]);
 
+  /* handler functions */
   const toggleExpand = () => {
     setExpand(!expand);
   };
@@ -51,37 +53,39 @@ const Comment = ({
     setEditMode(false);
   };
 
-  // const handleKeyDown = (e) => {
-  //   if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
-  //     if (editMode) {
-  //       handleEditSubmit();
-  //     } else {
-  //       handleReplySubmit();
-  //     }
-  //   }
-  // };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+      if (editMode) {
+        handleEditSubmit();
+      } else {
+        handleReplySubmit();
+      }
+    }
+  };
 
+  /* render */
   return (
     <div className="comment">
       {!editMode ? (
-        <>
+        <div>
           <p className="comment-content">{comment.content}</p>
+          <p className="comment-info">Replies: {comment.replies.length}</p>
           <p className="comment-info">Votes: {comment.votes}</p>
           <p className="comment-info">
             {new Date(comment.timestamp).toLocaleString()}
           </p>
-        </>
+        </div>
       ) : (
         <div className="add-comment">
           <textarea
-            // ref={editTextareaRef}
+            ref={editTextareaRef}
             value={editedContent}
             onChange={handleChange}
-            // onKeyDown={handleKeyDown}
+            onKeyDown={handleKeyDown}
             rows={3}
             cols={50}
             className="comment-textarea"
-            // aria-label="Edit comment"
+            aria-label="Edit comment"
           />
           <button onClick={handleEditSubmit} className="comment-button">
             Save Edit
@@ -93,7 +97,7 @@ const Comment = ({
       )}
 
       <div className="comment-actions">
-        {/* <button
+        <button
           onClick={() => onUpvoteComment(comment.id)}
           className="comment-button"
         >
@@ -104,7 +108,7 @@ const Comment = ({
           className="comment-button"
         >
           👎
-        </button> */}
+        </button>
         <button onClick={toggleExpand} className="comment-button">
           {expand ? "Hide Replies" : "Reply"}
         </button>
@@ -114,7 +118,7 @@ const Comment = ({
         <button
           onClick={() => onDeleteComment(comment.id)}
           className="comment-button"
-          // aria-label="Delete comment"
+          aria-label="Delete comment"
         >
           Delete
         </button>
@@ -124,15 +128,15 @@ const Comment = ({
         <div className="comment-replies">
           <div className="add-comment">
             <textarea
-              // ref={replyTextareaRef}
+              ref={replyTextareaRef}
               value={replyContent}
               onChange={handleChange}
-              // onKeyDown={handleKeyDown}
+              onKeyDown={handleKeyDown}
               placeholder="Add a reply..."
               rows={3}
               cols={50}
               className="comment-textarea"
-              // aria-label="Add a reply"
+              aria-label="Add a reply"
             />
             <button onClick={handleReplySubmit} className="comment-button">
               Submit Reply
@@ -145,8 +149,8 @@ const Comment = ({
               onSubmitComment={onSubmitComment}
               onEditComment={onEditComment}
               onDeleteComment={onDeleteComment}
-              // onUpvoteComment={onUpvoteComment}
-              // onDownvoteComment={onDownvoteComment}
+              onUpvoteComment={onUpvoteComment}
+              onDownvoteComment={onDownvoteComment}
             />
           ))}
         </div>

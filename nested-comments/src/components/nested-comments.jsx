@@ -2,33 +2,33 @@
 import { useState } from "react";
 import useCommentTree from "../hooks/use-comment-tree";
 import Comment from "./comment";
-import "./styles.css";
+import "./styles.less";
 
 const NestedComments = ({
   comments = [],
   onSubmit = () => {},
   onEdit = () => {},
   onDelete = () => {},
-  // onUpvote = () => {},
-  // onDownvote = () => {},
+  onUpvote = () => {},
+  onDownvote = () => {},
 }) => {
-  // states
+  /* states */
   const [comment, setComment] = useState("");
-  // const [sortOrder, setSortOrder] = useState("newest");
+  const [sortOrder, setSortOrder] = useState("newest");
 
-  // custom hook
+  /* custom hook */
   const {
     comments: commentsData,
     insertComment,
     editComment,
     deleteComment,
-    // sortComments,
-    // upDownVoteComment,
+    sortComments,
+    upDownVoteComment,
   } = useCommentTree(comments);
 
-  // handler functions
-  const handleReply = (commentId, content) => {
-    insertComment(commentId, content);
+  /* handler functions */
+  const handleReply = (parentCommentId, content) => {
+    insertComment(parentCommentId, content);
     onSubmit(content);
   };
 
@@ -53,48 +53,49 @@ const NestedComments = ({
     }
   };
 
-  // const handleSortChange = (e) => {
-  //   setSortOrder(e.target.value);
-  //   sortComments(e.target.value);
-  // };
+  const handleSortChange = (e) => {
+    setSortOrder(e.target.value);
+    sortComments(e.target.value);
+  };
 
-  // const handleKeyDown = (e) => {
-  //   if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
-  //     handleSubmit();
-  //   }
-  // };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+      handleSubmit();
+    }
+  };
 
-  // const handleUpvote = (commentId) => {
-  //   upDownVoteComment(true, commentId);
-  //   onUpvote(commentId);
-  //   if (sortOrder === "most-voted") sortComments(sortOrder);
-  // };
+  const handleUpvote = (commentId) => {
+    upDownVoteComment(true, commentId);
+    onUpvote(commentId);
+    if (sortOrder === "most-voted") sortComments(sortOrder);
+  };
 
-  // const handleDownvote = (commentId) => {
-  //   upDownVoteComment(false, commentId);
-  //   onDownvote(commentId);
-  //   if (sortOrder === "most-voted") sortComments(sortOrder);
-  // };
+  const handleDownvote = (commentId) => {
+    upDownVoteComment(false, commentId);
+    onDownvote(commentId);
+    if (sortOrder === "most-voted") sortComments(sortOrder);
+  };
 
+  /* render */
   return (
     <>
       <div className="add-comment">
         <textarea
           value={comment}
           onChange={handleEditChange}
-          // onKeyDown={handleKeyDown}
+          onKeyDown={handleKeyDown}
           rows={3}
           cols={50}
           className="comment-textarea"
           placeholder="Add a new comment..."
-          // aria-label="Add a new comment"
+          aria-label="Add a new comment"
         />
         <button onClick={handleSubmit} className="comment-button">
           Add Comment
         </button>
       </div>
 
-      {/* <div>
+      <div>
         <label htmlFor="sortOrder">Sort by: </label>
         <select
           id="sortOrder"
@@ -106,7 +107,7 @@ const NestedComments = ({
           <option value="oldest">Oldest</option>
           <option value="most-voted">Most Voted</option>
         </select>
-      </div> */}
+      </div>
 
       {commentsData.map((comment) => (
         <Comment
@@ -115,8 +116,8 @@ const NestedComments = ({
           onSubmitComment={handleReply}
           onEditComment={handleEdit}
           onDeleteComment={handleDelete}
-          // onUpvoteComment={handleUpvote}
-          // onDownvoteComment={handleDownvote}
+          onUpvoteComment={handleUpvote}
+          onDownvoteComment={handleDownvote}
         />
       ))}
     </>
