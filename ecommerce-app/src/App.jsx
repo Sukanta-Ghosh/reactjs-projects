@@ -19,6 +19,7 @@ import {RouterProvider, createBrowserRouter} from "react-router-dom";
 import AppLayout from "./components/app-layout";
 import Home from "./pages/home";
 import Context from "./context/context";
+import Cart from "./pages/cart";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
     ],
   },
 ]);
@@ -36,7 +41,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <Context>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </Context>
   );
 };

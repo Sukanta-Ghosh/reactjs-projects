@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { ShoppingCartState } from "../context/context";
+import {useMemo, useState} from "react";
+import {ShoppingCartState} from "../context/context";
 import Pagination from "../components/pagination";
 import StarRating from "../components/star-rating";
 import Filters from "../components/filters";
@@ -8,10 +8,12 @@ const Home = () => {
   const [page, setPage] = useState(1);
 
   const {
-    state: { products },
-    filterState: { sort, byStock, byRating, searchQuery, byCategories },
-    isLoading,
+    state: {products, cart},
+    dispatch,
+    filterState: {sort, byStock, byRating, searchQuery},
   } = ShoppingCartState();
+
+  console.log(cart);
 
   const filteredProducts = useMemo(() => {
     let filteredProducts = products;
@@ -38,42 +40,51 @@ const Home = () => {
       );
     }
 
-    if (byCategories?.length > 0) {
-      filteredProducts = filteredProducts.filter((prod) =>
-        byCategories.includes(prod.category)
-      );
-    }
-
     setPage(1);
 
     return filteredProducts;
-  }, [sort, byStock, byRating, searchQuery, byCategories, products]);
+  }, [sort, byStock, byRating, searchQuery, products]);
 
   return (
     <div>
       <div className="py-9 flex">
         {/* Filters */}
         <Filters />
-
         {/* Products */}
-        {isLoading && <h2>Loading...</h2>}
-        {filteredProducts.length > 0 ? (
+        {filteredProducts.length > 0 && (
           <div className="products w-full">
             {filteredProducts?.slice(page * 10 - 10, page * 10).map((prod) => {
+              const inCart = cart.some((p) => p.id === prod.id);
+
               return (
                 <span className={`products__single`} key={prod.id}>
                   <img src={prod.thumbnail} alt={prod.title} />
-                  <span>Name: {prod.title}</span>
-                  <div>Category: {prod.category}</div>
+                  <span>{prod.title}</span>
                   <hr />
                   <span>$ {prod.price}</span>
                   <StarRating rating={prod.rating} />
+                  <button
+                    className={`px-2 py-1 mt-2 ${
+                      !inCart ? "bg-orange-400" : "bg-blue-400"
+                    } border-none rounded-sm disabled:opacity-50`}
+                    disabled={!prod.inStock}
+                    onClick={() =>
+                      dispatch({
+                        type: inCart ? "REMOVE_FROM_CART" : "ADD_TO_CART",
+                        payload: prod,
+                      })
+                    }
+                  >
+                    {prod.inStock
+                      ? !inCart
+                        ? "Add to Cart"
+                        : "Remove from Cart"
+                      : "Out of Stock"}
+                  </button>
                 </span>
               );
             })}
           </div>
-        ) : (
-          <h2>No Products Found with filters...</h2>
         )}
       </div>
 
