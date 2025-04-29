@@ -35,12 +35,12 @@ const App = () => {
 
       <h2>Using Dynamic Data</h2> */}
       <Autocomplete
-        placeholder={"Enter fruit"}
         fetchSuggestions={fetchSuggestions}
         dataKey="name"
-        customloading={<div>Loading Recipes...</div>}
-        onSelect={(res) => console.log(res)}
         caching={true}
+        customloading={<div>Loading Recipes...</div>}
+        placeholder={"Enter a recipe..."}
+        //onSelect={(res) => console.log(res)}
         // onChange={(e) => {}}
         // onFocus={(e) => {}}
         // onBlur={(e) => {}}

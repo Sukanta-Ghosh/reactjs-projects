@@ -10,20 +10,22 @@ const Autocomplete = ({
   staticData,
   fetchSuggestions,
   caching = true,
+  dataKey = "",
   placeholder = "",
   customloading = "Loading...",
-  onSelect = () => {},
-  onBlur = () => {},
-  onFocus = () => {},
-  onChange = () => {},
-  customStyles = {},
-  dataKey = "",
+  //customStyles = {},
+  // onSelect = () => {},
+  // onBlur = () => {},
+  // onFocus = () => {},
+  // onChange = () => {},
 }) => {
   /* States */
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  // accessibility
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   /* Ref */
@@ -35,12 +37,12 @@ const Autocomplete = ({
   /* Handler Functions */
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
-    onChange(event.target.value);
+    //onChange(event.target.value); // Prop function
   };
 
   const handleSuggestionClick = (suggestion) => {
     setInputValue(dataKey ? suggestion[dataKey] : suggestion);
-    onSelect(suggestion);
+    //onSelect(suggestion); // Prop function
     setSuggestions([]);
   };
 
@@ -74,7 +76,7 @@ const Autocomplete = ({
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getSuggestionsDebounced = useCallback(
-    debounce(getSuggestions, 300),
+    debounce(getSuggestions, 1000),
     []
   );
 
@@ -84,9 +86,21 @@ const Autocomplete = ({
     } else {
       setSuggestions([]);
     }
+
+    // Accessibility
     setSelectedIndex(-1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue]);
+
+  const handleBlur = () => {
+    setIsDropdownOpen(false);
+    //onBlur(); // Prop function
+  };
+
+  const handleFocus = () => {
+    setIsDropdownOpen(true);
+    //onFocus(); // Prop function
+  };
 
   /* Accessibility */
   const scrollIntoView = (index) => {
@@ -133,20 +147,20 @@ const Autocomplete = ({
   return (
     <div className="autocomplete-container">
       <input
-        style={customStyles}
         type="text"
         value={inputValue}
         onChange={handleInputChange}
-        onBlur={onBlur}
-        onFocus={onFocus}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
         placeholder={placeholder}
         className="autocomplete-input"
+        //style={customStyles}
         onKeyDown={handleKeyDown}
         aria-autocomplete="list"
         aria-controls="suggestions-list"
         aria-activedescendant={`suggestion-${selectedIndex}`}
       />
-      {(suggestions.length > 0 || loading || error) && (
+      {((isDropdownOpen && suggestions.length > 0) || loading || error) && (
         <ul
           id="suggestions-list"
           className="suggestions-list"
