@@ -1,4 +1,5 @@
 import Autocomplete from "./components/autocomplete";
+//import Autocomplete from "./components-ts/autocomplete";
 import "./App.css";
 
 /* const staticData = [

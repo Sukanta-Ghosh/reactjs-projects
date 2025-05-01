@@ -1,0 +1,25 @@
+.tab-container {
+  display: flex;
+}
+
+.tab {
+  padding: 5px;
+  border: 1px solid black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tab-body {
+  height: 200px;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+button {
+  margin: 10px;
+}
+
+.error {
+  color: red;
+  display: block;
+}
