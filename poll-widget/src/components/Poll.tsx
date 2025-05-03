@@ -11,16 +11,17 @@ const PollWidget: React.FC<PollProps> = ({
   onVoteRemove,
   styles = {},
 }) => {
-  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
+  const [selectedOptionsIds, setSelectedOptionsIds] = useState<number[]>([]);
   const [currentOptions, setCurrentOptions] = useState<Option[]>(options);
 
   useEffect(() => {
     const storedVotes = localStorage.getItem(`poll-${pollId}`);
     if (storedVotes) {
-      setSelectedOptions(JSON.parse(storedVotes));
+      setSelectedOptionsIds(JSON.parse(storedVotes));
     }
   }, [pollId]);
 
+  // find totalVotes
   const totalVotes = currentOptions.reduce(
     (acc, option) => acc + option.votes,
     0
@@ -28,41 +29,50 @@ const PollWidget: React.FC<PollProps> = ({
 
   // Handler functions
   const handleVote = async (optionId: number) => {
-    let newSelectedOptions: number[];
+    let newSelectedOptionsIds: number[];
     let updatedOptions;
 
     if (isMultiple) {
-      if (selectedOptions.includes(optionId)) {
-        newSelectedOptions = selectedOptions.filter((id) => id !== optionId);
+      if (selectedOptionsIds.includes(optionId)) {
+        newSelectedOptionsIds = selectedOptionsIds.filter(
+          (id) => id !== optionId
+        );
         updatedOptions = await onVoteRemove(pollId, [optionId]);
       } else {
-        newSelectedOptions = [...selectedOptions, optionId];
+        newSelectedOptionsIds = [...selectedOptionsIds, optionId];
         updatedOptions = await onVote(pollId, [optionId]);
       }
     }
     // if single
     else {
-      if (selectedOptions.length > 0 && selectedOptions[0] !== optionId) {
-        await onVoteRemove(pollId, selectedOptions);
+      if (selectedOptionsIds.length > 0 && selectedOptionsIds[0] !== optionId) {
+        await onVoteRemove(pollId, selectedOptionsIds);
       }
-      newSelectedOptions = [optionId];
-      updatedOptions = await onVote(pollId, newSelectedOptions);
+      newSelectedOptionsIds = [optionId];
+      updatedOptions = await onVote(pollId, newSelectedOptionsIds);
     }
 
     setCurrentOptions(updatedOptions);
-    setSelectedOptions(newSelectedOptions);
-    localStorage.setItem(`poll-${pollId}`, JSON.stringify(newSelectedOptions));
+    setSelectedOptionsIds(newSelectedOptionsIds);
+    //cache
+    localStorage.setItem(
+      `poll-${pollId}`,
+      JSON.stringify(newSelectedOptionsIds)
+    );
   };
 
   const handleRemoveVote = useCallback(async () => {
-    const updatedOptions = await onVoteRemove(pollId, selectedOptions);
-    setSelectedOptions([]);
+    const updatedOptions = await onVoteRemove(pollId, selectedOptionsIds);
+    setSelectedOptionsIds([]);
+    setCurrentOptions(updatedOptions);
+
+    // cache
     localStorage.removeItem(`poll-${pollId}`);
-    setCurrentOptions(updatedOptions); // Update the state with new options
-  }, [pollId, selectedOptions, onVoteRemove]);
+  }, [pollId, selectedOptionsIds, onVoteRemove]);
 
   useEffect(() => {
     handleRemoveVote();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMultiple]);
 
   return (
@@ -101,16 +111,16 @@ const PollWidget: React.FC<PollProps> = ({
                     className="poll-option-input"
                     type={isMultiple ? "checkbox" : "radio"}
                     onChange={() => handleVote(option.id)}
+                    checked={selectedOptionsIds.includes(option.id)}
                     /* accesibility */
                     id={`option-${option.id}`}
-                    checked={selectedOptions.includes(option.id)}
-                    aria-checked={selectedOptions.includes(option.id)}
+                    aria-checked={selectedOptionsIds.includes(option.id)}
                     aria-describedby={`option-${option.id}-info`}
                     style={styles.optionInput}
                   />
                   <span id={`option-${option.id}-info`}>{option.title}</span>
                 </label>
-                {selectedOptions.length > 0 && (
+                {selectedOptionsIds.length > 0 && (
                   <span
                     className="poll-option-votes"
                     style={styles.optionVotes}
@@ -120,7 +130,7 @@ const PollWidget: React.FC<PollProps> = ({
                 )}
               </div>
               <div className="poll-progress-bar" style={styles.progressBar}>
-                {selectedOptions.length > 0 && (
+                {selectedOptionsIds.length > 0 && (
                   <div
                     className="poll-progress-bar-fill"
                     style={{
@@ -134,7 +144,7 @@ const PollWidget: React.FC<PollProps> = ({
           );
         })}
       </div>
-      {selectedOptions.length > 0 && (
+      {selectedOptionsIds.length > 0 && (
         <button
           className="poll-remove-button"
           onClick={handleRemoveVote}
