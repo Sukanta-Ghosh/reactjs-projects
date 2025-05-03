@@ -1,15 +1,4 @@
-export interface Option {
-  id: number;
-  title: string;
-  votes: number;
-}
-
-export interface Poll {
-  id: number;
-  question: string;
-  totalCount: number;
-  options: Option[];
-}
+import { Option, Poll } from "../types";
 
 // Fetch a specific poll by ID
 export const fetchPoll = async (pollId: number): Promise<Poll> => {

@@ -1,14 +1,20 @@
 ### Docs
 
 - Create Vite Project: `npm create vite@latest`
-- Create Vite Project: `npm create vite@5.0.0`
 - Run vite Project: `npm run dev`
 
-### Content
+## Content
 
-### Resources
+## 3rd Party Libraries
 
-- [API Urls](https://dummyjson.com/docs/products)
+- react-query
+- react-hook-form
+
+### Dev libraries
+
+## Resources
+
+- [dummyjson API](https://dummyjson.com/docs/products)
 
 ### Tips
 

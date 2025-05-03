@@ -1,30 +1,6 @@
-import React, { useState, useEffect, useCallback, CSSProperties } from "react";
-import { Option } from "../db/api";
-
-interface PollStyles {
-  container?: CSSProperties;
-  title?: CSSProperties;
-  optionsContainer?: CSSProperties;
-  optionLabel?: CSSProperties;
-  optionInput?: CSSProperties;
-  optionVotes?: CSSProperties;
-  progressBar?: CSSProperties;
-  progressBarFill?: CSSProperties;
-  removeButton?: CSSProperties;
-}
-
-interface PollProps {
-  pollId: number;
-  title: string;
-  options: Option[];
-  isMultiple?: boolean;
-  onVote: (pollId: number, selectedOptions: number[]) => Promise<Option[]>;
-  onVoteRemove: (
-    pollId: number,
-    selectedOptions: number[]
-  ) => Promise<Option[]>;
-  styles?: PollStyles; // Add styles prop
-}
+import React, { useCallback, useEffect, useState } from "react";
+import { Option, PollProps } from "../types";
+import "../styles/poll.css";
 
 const PollWidget: React.FC<PollProps> = ({
   pollId,
@@ -50,29 +26,30 @@ const PollWidget: React.FC<PollProps> = ({
     0
   );
 
+  // Handler functions
   const handleVote = async (optionId: number) => {
     let newSelectedOptions: number[];
+    let updatedOptions;
 
     if (isMultiple) {
       if (selectedOptions.includes(optionId)) {
         newSelectedOptions = selectedOptions.filter((id) => id !== optionId);
-        const updatedOptions = await onVoteRemove(pollId, [optionId]);
-        setCurrentOptions(updatedOptions);
+        updatedOptions = await onVoteRemove(pollId, [optionId]);
       } else {
         newSelectedOptions = [...selectedOptions, optionId];
-        const updatedOptions = await onVote(pollId, [optionId]);
-        setCurrentOptions(updatedOptions);
+        updatedOptions = await onVote(pollId, [optionId]);
       }
-    } else {
+    }
+    // if single
+    else {
       if (selectedOptions.length > 0 && selectedOptions[0] !== optionId) {
-        const updatedOptions = await onVoteRemove(pollId, selectedOptions);
-        setCurrentOptions(updatedOptions);
+        await onVoteRemove(pollId, selectedOptions);
       }
       newSelectedOptions = [optionId];
-      const updatedOptions = await onVote(pollId, newSelectedOptions);
-      setCurrentOptions(updatedOptions);
+      updatedOptions = await onVote(pollId, newSelectedOptions);
     }
 
+    setCurrentOptions(updatedOptions);
     setSelectedOptions(newSelectedOptions);
     localStorage.setItem(`poll-${pollId}`, JSON.stringify(newSelectedOptions));
   };
@@ -84,22 +61,26 @@ const PollWidget: React.FC<PollProps> = ({
     setCurrentOptions(updatedOptions); // Update the state with new options
   }, [pollId, selectedOptions, onVoteRemove]);
 
+  useEffect(() => {
+    handleRemoveVote();
+  }, [isMultiple]);
+
   return (
     <fieldset
-      className="p-4 border border-gray-300 rounded-lg max-w-md mx-auto"
+      className="poll-container"
       role="group"
       aria-labelledby={`poll-${pollId}-title`}
       style={styles.container}
     >
       <legend
+        className="poll-title"
         id={`poll-${pollId}-title`}
-        className="text-lg font-semibold"
         style={styles.title}
       >
         {title}
       </legend>
       <div
-        className="space-y-2 overflow-y-auto"
+        className="poll-options-container"
         style={{
           ...styles.optionsContainer,
           maxHeight: currentOptions.length > 4 ? "200px" : "auto",
@@ -109,18 +90,20 @@ const PollWidget: React.FC<PollProps> = ({
           const percentage =
             totalVotes > 0 ? (option.votes / totalVotes) * 100 : 0;
           return (
-            <div key={option.id} className="space-y-1">
-              <div className="flex items-center justify-between">
+            <div key={option.id} className="poll-option">
+              <div className="poll-option-header">
                 <label
-                  className="flex items-center space-x-2"
+                  className="poll-option-label"
                   htmlFor={`option-${option.id}`}
                   style={styles.optionLabel}
                 >
                   <input
-                    id={`option-${option.id}`}
+                    className="poll-option-input"
                     type={isMultiple ? "checkbox" : "radio"}
-                    checked={selectedOptions.includes(option.id)}
                     onChange={() => handleVote(option.id)}
+                    /* accesibility */
+                    id={`option-${option.id}`}
+                    checked={selectedOptions.includes(option.id)}
                     aria-checked={selectedOptions.includes(option.id)}
                     aria-describedby={`option-${option.id}-info`}
                     style={styles.optionInput}
@@ -128,21 +111,21 @@ const PollWidget: React.FC<PollProps> = ({
                   <span id={`option-${option.id}-info`}>{option.title}</span>
                 </label>
                 {selectedOptions.length > 0 && (
-                  <span style={styles.optionVotes}>
+                  <span
+                    className="poll-option-votes"
+                    style={styles.optionVotes}
+                  >
                     {option.votes} votes ({percentage.toFixed(1)}%)
                   </span>
                 )}
               </div>
-              <div
-                className="w-full bg-gray-200 rounded-full h-2"
-                style={styles.progressBar}
-              >
+              <div className="poll-progress-bar" style={styles.progressBar}>
                 {selectedOptions.length > 0 && (
                   <div
-                    className="bg-blue-500 h-full rounded-full transform origin-left"
+                    className="poll-progress-bar-fill"
                     style={{
-                      ...styles.progressBarFill,
                       transform: `scaleX(${percentage / 100})`,
+                      ...styles.progressBarFill,
                     }}
                   ></div>
                 )}
@@ -153,7 +136,7 @@ const PollWidget: React.FC<PollProps> = ({
       </div>
       {selectedOptions.length > 0 && (
         <button
-          className="mt-4 bg-red-500 text-white py-1 px-3 rounded"
+          className="poll-remove-button"
           onClick={handleRemoveVote}
           style={styles.removeButton}
         >

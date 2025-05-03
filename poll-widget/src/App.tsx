@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import PollWidget from "./components/Poll";
-import { fetchPoll, submitVote, removeVote, Poll as PollType } from "./db/api";
+import { fetchPoll, submitVote, removeVote } from "./db/api";
 import Loading from "./components/loading";
+import { Poll as PollType } from "./types";
+import "./App.css";
 
 const App: React.FC = () => {
   const [pollData, setPollData] = useState<PollType | null>(null);
@@ -33,8 +35,11 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-start pt-20 justify-center bg-gray-100">
-      <select onChange={(e) => handleConfig(e.target.value)}>
+    <div className="container">
+      <select
+        onChange={(e) => handleConfig(e.target.value)}
+        className="select-config"
+      >
         <option value="single">Single</option>
         <option value="multiple">Multiple</option>
       </select>

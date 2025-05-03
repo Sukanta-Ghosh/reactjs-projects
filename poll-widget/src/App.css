@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 5rem;
+    min-height: 100vh;
+    background-color: #f3f4f6;
+}
+
+.select-config {
+    margin: 20px;
+}
