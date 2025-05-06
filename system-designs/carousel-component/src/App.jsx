@@ -10,6 +10,8 @@ import SingleProductDetails, {
   singleProductsLoader,
 } from "./components-common/single-product-details";
 
+import CarouselImagesTS from "./ts-components/carousel-products-container";
+
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -21,6 +23,11 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <CarouselImages />,
+        loader: imageLoader,
+      },
+      {
+        path: "/products-ts",
+        element: <CarouselImagesTS />,
         loader: imageLoader,
       },
       {

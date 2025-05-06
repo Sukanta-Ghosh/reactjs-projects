@@ -10,7 +10,8 @@ Requirements:
 */
 
 import "./App.css";
-import IntersectionObserverInfinite from "./component/IntersectionObserverInfinite";
+import IntersectionObserverInfinite from "./ts-components/IntersectionObserverInfinite";
+//import IntersectionObserverInfinite from "./component/IntersectionObserverInfinite";
 
 const App = () => {
   return (

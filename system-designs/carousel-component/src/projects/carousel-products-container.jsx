@@ -10,8 +10,8 @@
 */
 
 import { useEffect, useState } from "react";
-import Carousel from "./carousel";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import Carousel from "../carousel-util/carousel";
 
 // config
 const imgLimitAPI = 8;
@@ -68,6 +68,7 @@ const CarouselImages = () => {
         onImgClick={onImgClick}
         imgPerSlide={imgPerSlide}
         imageLimit={imageLimit}
+        /* customization */
         customPrevButton={(onClick) => (
           <button
             className="btn prev"

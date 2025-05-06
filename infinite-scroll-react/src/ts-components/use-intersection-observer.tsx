@@ -1,13 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, MutableRefObject } from "react";
 
-const useIntersectionObserver = (ref, options) => {
+interface IntersectionObserverOptions extends IntersectionObserverInit {}
+
+const useIntersectionObserver = (
+  ref: MutableRefObject<Element | null>,
+  options?: IntersectionObserverOptions
+): IntersectionObserverEntry | null => {
   // state
   const [intersectionObserverEntry, setIntersectionObserverEntry] =
-    useState(null);
+    useState<IntersectionObserverEntry | null>(null);
 
   useEffect(() => {
     if (ref.current && typeof IntersectionObserver === "function") {
-      const handler = (entries) => {
+      const handler = (entries: IntersectionObserverEntry[]) => {
         setIntersectionObserverEntry(entries[0]);
       };
 
@@ -16,7 +21,9 @@ const useIntersectionObserver = (ref, options) => {
 
       return () => {
         setIntersectionObserverEntry(null);
-        observer.unobserve(ref.current);
+        if (ref.current) {
+          observer.unobserve(ref.current);
+        }
         observer.disconnect();
       };
     }

@@ -12,13 +12,14 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "./carousel-main";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import { Image, Product } from "./types";
 
 // config
 const imgLimitAPI = 8;
 const imageLimit = 8;
 const imgPerSlide = 3;
 
-export async function imageLoader() {
+export async function imageLoader(): Promise<Product[] | undefined> {
   try {
     const response = await fetch(
       `https://dummyjson.com/products?limit=${imgLimitAPI}`
@@ -30,13 +31,13 @@ export async function imageLoader() {
   }
 }
 
-const CarouselImagesTS = () => {
+const CarouselImagesTS: React.FC = () => {
   // const [images, setImages] = useState([]);
   // const [loading, setLoading] = useState(false);
   const data = useLoaderData();
   const navigate = useNavigate();
 
-  const onImgClick = (image, index) => {
+  const onImgClick = (image: Image, index: number) => {
     navigate(`/products/${image.id}`);
   };
 

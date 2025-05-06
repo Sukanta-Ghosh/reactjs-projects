@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import React, {useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import useCommentTree from "../hooks/use-comment-tree";
 import Comment from "./comment";
 import "./styles.css";
-import {NestedCommentsProps} from "./types";
+import { NestedCommentsProps } from "./types";
 
 const NestedComments: React.FC<NestedCommentsProps> = ({
   comments = [],
@@ -13,6 +13,7 @@ const NestedComments: React.FC<NestedCommentsProps> = ({
   onUpvote = () => {},
   onDownvote = () => {},
 }) => {
+  // states
   const [comment, setComment] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("newest");
 
@@ -25,6 +26,7 @@ const NestedComments: React.FC<NestedCommentsProps> = ({
     upDownVoteComment,
   } = useCommentTree(comments);
 
+  // handler functions
   const handleReply = (commentId: number | undefined, content: string) => {
     insertComment(commentId, content);
     onSubmit(content);
@@ -56,12 +58,6 @@ const NestedComments: React.FC<NestedCommentsProps> = ({
     sortComments(e.target.value);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
-      handleSubmit();
-    }
-  };
-
   const handleUpvote = (commentId: number) => {
     upDownVoteComment(true, commentId);
     onUpvote(commentId);
@@ -74,6 +70,14 @@ const NestedComments: React.FC<NestedCommentsProps> = ({
     if (sortOrder === "most-voted") sortComments(sortOrder);
   };
 
+  // a11y
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+      handleSubmit();
+    }
+  };
+
+  //render
   return (
     <>
       <div className="add-comment">

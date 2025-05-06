@@ -1,3 +1,4 @@
+import React from "react";
 export interface Image {
   id: string | number;
   url: string;
@@ -13,4 +14,11 @@ export interface CarouselProps {
   customNextButton?: (onClick: () => void) => JSX.Element;
   onImgClick?: (image: Image, index: number) => void;
   imgPerSlide: number;
+}
+
+export interface Product {
+  id: number;
+  title: string;
+  price: number;
+  thumbnail: string;
 }

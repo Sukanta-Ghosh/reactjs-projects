@@ -1,20 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useIntersectionObserver from "./use-intersection-observer";
+import { Product } from "./types";
 
 // API URL
 const API_URL = "https://dummyjson.com/products?limit=10";
+
 // Observer config
-const options = {
+const options: IntersectionObserverInit = {
   root: null,
   rootMargin: "0px",
   threshold: 1,
 };
-const IntersectionObserverInfinite = () => {
-  const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
 
-  const observerRef = useRef(null);
+const IntersectionObserverInfinite: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const observerRef = useRef<HTMLDivElement | null>(null);
 
   const intersectionEntry = useIntersectionObserver(observerRef, options);
 
@@ -52,14 +55,12 @@ const IntersectionObserverInfinite = () => {
     <>
       <h2>Infinite Scrolling</h2>
       <main className="products">
-        {products?.map((item) => {
-          return (
-            <span key={item.sku} className="products__single">
-              <img src={item.thumbnail} alt={item.title} loading="lazy" />
-              <span>{item.title}</span>
-            </span>
-          );
-        })}
+        {products?.map((item) => (
+          <span key={item.sku} className="products__single">
+            <img src={item.thumbnail} alt={item.title} loading="lazy" />
+            <span>{item.title}</span>
+          </span>
+        ))}
       </main>
       {loading && <h3>Loading...</h3>}
       <footer ref={observerRef}>Footer</footer>

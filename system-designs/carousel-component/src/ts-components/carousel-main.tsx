@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CarouselProps } from "./types";
 
-/* eslint-disable react/prop-types */
 const Carousel: React.FC<CarouselProps> = ({
   images = [],
   isLoading = false,
@@ -18,7 +17,7 @@ const Carousel: React.FC<CarouselProps> = ({
   const imgRef = useRef<HTMLImageElement | null>(null);
 
   // variable
-  let sliceLimit = imageLimit > images.length ? images.length : imageLimit;
+  const sliceLimit = imageLimit > images.length ? images.length : imageLimit;
 
   useEffect(() => {
     if (images.length > 0) {
@@ -32,6 +31,7 @@ const Carousel: React.FC<CarouselProps> = ({
       prevIndex === 0 ? imageLimit - imgPerSlide : prevIndex - 1
     );
   };
+
   const goToNext = () => {
     /* imageLimit - imgPerSlide => This should be last currentIndex after again reset with 0 index */
     setCurrentIndex((prevIndex) =>
@@ -55,7 +55,7 @@ const Carousel: React.FC<CarouselProps> = ({
               key={image.id}
               src={image.thumbnail || image.url}
               onClick={() => onImgClick(image, index)}
-              alt={image.title}
+              alt={image.title || "Carousel Image"}
               className="image"
             />
           );

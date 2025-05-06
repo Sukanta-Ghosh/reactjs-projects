@@ -1,5 +1,5 @@
-import React, {useRef, useState, useEffect} from "react";
-import {CommentProps} from "./types";
+import React, { useRef, useState, useEffect } from "react";
+import { CommentProps } from "./types";
 
 const Comment: React.FC<CommentProps> = ({
   comment,
@@ -9,11 +9,13 @@ const Comment: React.FC<CommentProps> = ({
   onUpvoteComment,
   onDownvoteComment,
 }) => {
+  // states
   const [expand, setExpand] = useState<boolean>(false);
   const [replyContent, setReplyContent] = useState<string>("");
   const [editMode, setEditMode] = useState<boolean>(false);
   const [editedContent, setEditedContent] = useState<string>(comment.content);
 
+  // refs
   const replyTextareaRef = useRef<HTMLTextAreaElement>(null);
   const editTextareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -26,6 +28,7 @@ const Comment: React.FC<CommentProps> = ({
     }
   }, [editMode, expand]);
 
+  // handler functions
   const toggleExpand = () => {
     setExpand(!expand);
   };
@@ -55,6 +58,7 @@ const Comment: React.FC<CommentProps> = ({
     setEditMode(false);
   };
 
+  /* a11y */
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
       if (editMode) {
@@ -65,6 +69,7 @@ const Comment: React.FC<CommentProps> = ({
     }
   };
 
+  // render
   return (
     <div className="comment">
       {!editMode ? (

@@ -1,7 +1,12 @@
 import React from "react";
 import { useLoaderData, Link } from "react-router-dom";
+import { Product } from "./types";
 
-export async function singleProductsLoader({ params }) {
+export async function singleProductsLoader({
+  params,
+}: {
+  params: { productId: string };
+}): Promise<Product | undefined> {
   const { productId } = params;
   try {
     const response = await fetch(`https://dummyjson.com/products/${productId}`);
@@ -18,7 +23,7 @@ export async function singleProductsLoader({ params }) {
 }
 
 const SingleProductDetails = () => {
-  const product = useLoaderData();
+  const product = useLoaderData() as Product;
 
   return (
     <div>
@@ -28,7 +33,7 @@ const SingleProductDetails = () => {
         <div>Name: {product.title}</div>
         <div>Price: ${product.price}</div>
       </div>
-      <Link to={"-1"}>Go Back</Link>
+      <Link to={-1 as any}>Go Back</Link>
     </div>
   );
 };
