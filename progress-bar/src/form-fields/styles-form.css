@@ -1,0 +1,27 @@
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.flex-items {
+    padding: 5px;
+}
+
+.error {
+    margin: 0 0 24px 0;
+    color: red;
+}
+
+.wrapper {
+    width: 500px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: lightgrey;
+}
+
+.progress {
+    height: 100%;
+    border-radius: 5px;
+    background-color: green;
+}

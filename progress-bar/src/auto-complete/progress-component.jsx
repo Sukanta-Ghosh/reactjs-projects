@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ProgressBarAuto from "./ProgressBarAuto";
+import "./styles-auto.css";
 
 export default function AutoProgressBar() {
   const [value, setValue] = useState(0);

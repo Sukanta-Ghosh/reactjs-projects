@@ -10,14 +10,15 @@ const Carousel: React.FC<CarouselProps> = ({
   onImgClick = () => {},
   imgPerSlide = 1,
 }) => {
-  // state
+  // states
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [imgWidth, setImgWidth] = useState<number>(0);
+
   // ref
   const imgRef = useRef<HTMLImageElement | null>(null);
 
-  // variable
-  const sliceLimit = imageLimit > images.length ? images.length : imageLimit;
+  // variable: For carousel we can use slice() function also
+  const sliceLimit = imageLimit > images.length ? images.length : imageLimit; // Not used
 
   useEffect(() => {
     if (images.length > 0) {
@@ -47,7 +48,8 @@ const Carousel: React.FC<CarouselProps> = ({
         className="image-container"
         style={{ transform: `translateX(-${currentIndex * imgWidth}px)` }}
       >
-        {images.slice(0, sliceLimit).map((image, index) => {
+        {images.map((image, index) => {
+          //or images.slice(0, sliceLimit).map
           return (
             <img
               onLoad={() => setImgWidth(imgRef?.current?.offsetWidth || 0)}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../App.css";
 import ProgressBar from "./ProgressBar";
+import "./styles-form.css";
 
 export default function Form() {
   const documentCategories = ["XL", "PDF"];

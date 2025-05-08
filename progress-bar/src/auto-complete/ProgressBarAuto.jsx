@@ -28,6 +28,7 @@ export default function ProgressBarAuto({ value = 0, onComplete = () => {} }) {
           transform: `scaleX(${percent / MAX})`,
           transformOrigin: "left",
         }}
+        /* a11y */
         aria-valuemin={MIN}
         aria-valuemax={MAX}
         aria-valuenow={percent}

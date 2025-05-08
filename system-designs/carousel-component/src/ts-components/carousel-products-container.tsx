@@ -67,9 +67,9 @@ const CarouselImagesTS: React.FC = () => {
       <Carousel
         images={data.products}
         isLoading={false}
-        onImgClick={onImgClick}
         imgPerSlide={imgPerSlide}
         imageLimit={imageLimit}
+        onImgClick={onImgClick}
         /* customization */
         customPrevButton={(onClick) => (
           <button

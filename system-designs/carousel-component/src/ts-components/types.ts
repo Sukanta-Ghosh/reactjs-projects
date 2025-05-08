@@ -10,10 +10,10 @@ export interface CarouselProps {
   images: Image[];
   isLoading: boolean;
   imageLimit: number;
+  imgPerSlide: number;
+  onImgClick?: (image: Image, index: number) => void;
   customPrevButton?: (onClick: () => void) => JSX.Element;
   customNextButton?: (onClick: () => void) => JSX.Element;
-  onImgClick?: (image: Image, index: number) => void;
-  imgPerSlide: number;
 }
 
 export interface Product {
