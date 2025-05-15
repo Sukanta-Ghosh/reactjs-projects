@@ -3,10 +3,12 @@ body {
 }
 
 .game {
-  max-width: calc(var(--board-size) * 100px);
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   text-align: center;
   padding: 20px;
+  width: 50%;
 }
 
 .status {
@@ -17,6 +19,7 @@ body {
 }
 
 .board {
+  max-width: calc(var(--board-size) * 100px);
   display: grid;
   grid-template-columns: repeat(var(--board-size), 1fr);
   justify-content: center;

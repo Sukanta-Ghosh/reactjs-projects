@@ -1,10 +1,10 @@
 export interface AutocompleteProps {
-  staticData?: string[];
   fetchSuggestions?: (query: string) => Promise<string[]>;
   caching?: boolean;
   dataKey?: string;
-  placeholder?: string;
   customloading?: string;
+  placeholder?: string;
+  staticData?: string[];
 }
 
 export interface SuggestionsListProps {
@@ -16,7 +16,7 @@ export interface SuggestionsListProps {
 }
 
 // Type definition for cached data
- export interface CachedData<T> {
+export interface CachedData<T> {
   data: T;
   timestamp: number;
 }

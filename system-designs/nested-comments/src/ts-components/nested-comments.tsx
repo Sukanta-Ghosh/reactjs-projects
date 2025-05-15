@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from "react";
 import useCommentTree from "../hooks/use-comment-tree";
-import Comment from "./comment";
+import Comments from "./comment";
 import "./styles.css";
-import { NestedCommentsProps } from "./types";
+import { Comment, NestedCommentsProps } from "./types";
 
 const NestedComments: React.FC<NestedCommentsProps> = ({
   comments = [],
@@ -110,8 +110,8 @@ const NestedComments: React.FC<NestedCommentsProps> = ({
         </select>
       </div>
 
-      {commentsData.map((comment) => (
-        <Comment
+      {commentsData.map((comment: Comment) => (
+        <Comments
           key={comment.id}
           comment={comment}
           onSubmitComment={handleReply}

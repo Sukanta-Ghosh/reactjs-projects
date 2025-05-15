@@ -6,3 +6,7 @@
 - [Infinite Scroll](infinite-scroll-react/src/component)
 - [Progress Bar](progress-bar/src/form-fields)
 - [Debounce Fetch](debounce-fetch/src)
+
+## Revise Topics
+
+- Regex -> Autocomplete

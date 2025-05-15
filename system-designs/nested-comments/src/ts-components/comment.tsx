@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { CommentProps } from "./types";
 
-const Comment: React.FC<CommentProps> = ({
+const Comments: React.FC<CommentProps> = ({
   comment,
   onSubmitComment,
   onEditComment,
@@ -148,7 +148,7 @@ const Comment: React.FC<CommentProps> = ({
             </button>
           </div>
           {comment.replies.map((reply) => (
-            <Comment
+            <Comments
               key={reply.id}
               comment={reply}
               onSubmitComment={onSubmitComment}
@@ -164,4 +164,4 @@ const Comment: React.FC<CommentProps> = ({
   );
 };
 
-export default Comment;
+export default Comments;

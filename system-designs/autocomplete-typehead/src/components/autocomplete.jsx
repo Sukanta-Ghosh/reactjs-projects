@@ -4,15 +4,14 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import debounce from "lodash/debounce";
 import SuggestionsList from "./suggestions-list";
 import useCache from "../hooks/use-cache";
-import "./styles.css";
 
 const Autocomplete = ({
-  staticData,
   fetchSuggestions,
   caching = true,
   dataKey = "",
   placeholder = "",
   customloading = "Loading...",
+  staticData, //not present
   //customStyles = {},
   // onSelect = () => {},
   // onBlur = () => {},

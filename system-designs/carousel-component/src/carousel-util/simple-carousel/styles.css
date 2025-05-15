@@ -1,0 +1,53 @@
+.container {
+    max-width: 660px;
+    max-height: 400px;
+    width: 100%;
+    margin: auto;
+    position: relative;
+    background: black;
+}
+
+.slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    margin: auto;
+}
+
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.page-button {
+    margin: 0 5px;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    border: none;
+    cursor: pointer;
+    background: lightgray;
+}
+
+.page-button.active {
+    background: black;
+}

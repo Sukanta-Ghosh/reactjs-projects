@@ -52,9 +52,9 @@ const Carousel = ({
               onLoad={() => setImgWidth(imgRef?.current?.offsetWidth)}
               ref={imgRef}
               key={image.id}
-              src={image.thumbnail || image.url}
+              src={image.thumbnail || image.url || image.src}
               onClick={() => onImgClick(image, index)}
-              alt={image.title}
+              alt={image.title || image.alt}
               className="image"
             />
           );

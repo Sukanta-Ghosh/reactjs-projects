@@ -32,34 +32,12 @@ export async function imageLoader(): Promise<Product[] | undefined> {
 }
 
 const CarouselImagesTS: React.FC = () => {
-  // const [images, setImages] = useState([]);
-  // const [loading, setLoading] = useState(false);
   const data = useLoaderData();
   const navigate = useNavigate();
 
   const onImgClick = (image: Image, index: number) => {
     navigate(`/products/${image.id}`);
   };
-
-  /* // fetch Image
-  const fetchImages = async (imgLimit) => {
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `https://jsonplaceholder.typicode.com/photos?_limit=${imgLimit}`
-      );
-      const data = await response.json();
-      setImages(data);
-    } catch (error) {
-      console.error("Error fetching images:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchImages(8);
-  }, []); */
 
   return (
     <div className="carousel-container">

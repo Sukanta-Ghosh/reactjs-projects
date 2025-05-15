@@ -1,33 +1,33 @@
 import { useState } from "react";
+import { Board, UseTicTacToeReturn } from "./types";
 
-const initialBoard = (size) => Array(size * size).fill(null);
+const initialBoard = (size: number): Board => Array(size * size).fill(null);
 
-const useTictacToe = (boardSize) => {
-  const [board, setBoard] = useState(initialBoard(boardSize));
-  const [isXNext, setIsXNext] = useState(true);
+const useTictacToe = (boardSize: number): UseTicTacToeReturn => {
+  const [board, setBoard] = useState<Board>(initialBoard(boardSize));
+  const [isXNext, setIsXNext] = useState<boolean>(true);
 
   /* Generate winning patterns */
-  const generateWinningPatterns = () => {
-    const patterns = [];
+  const generateWinningPatterns = (): number[][] => {
+    const patterns: number[][] = [];
 
-    // Generate horizental and vertical patterns
+    // Generate horizontal and vertical patterns
     for (let i = 0; i < boardSize; i++) {
-      const horizontalPattern = [];
-      const verticalPattern = [];
+      const horizontalPattern: number[] = [];
+      const verticalPattern: number[] = [];
       for (let j = 0; j < boardSize; j++) {
-        horizontalPattern.push(i * boardSize + j); // in horizental i represents row, j represents column
-        verticalPattern.push(j * boardSize + i); // in vertical j represents row, i represents column
+        horizontalPattern.push(i * boardSize + j);
+        verticalPattern.push(j * boardSize + i);
       }
       patterns.push(horizontalPattern, verticalPattern);
     }
 
-    // Generate diagonal winning pattern
-    const diagonal1 = [];
-    const diagonal2 = [];
-    // here i represents rows
+    // Generate diagonal winning patterns
+    const diagonal1: number[] = [];
+    const diagonal2: number[] = [];
     for (let i = 0; i < boardSize; i++) {
-      diagonal1.push(i * (boardSize + 1)); // top left to down right
-      diagonal2.push((i + 1) * (boardSize - 1)); // top right to down left
+      diagonal1.push(i * (boardSize + 1));
+      diagonal2.push((i + 1) * (boardSize - 1));
     }
     patterns.push(diagonal1, diagonal2);
 
@@ -35,12 +35,12 @@ const useTictacToe = (boardSize) => {
   };
 
   const WINNING_PATTERNS = generateWinningPatterns();
+  console.log(WINNING_PATTERNS);
 
   // Calculate Winner handler
-  const calculateWinner = (currentBoard) => {
+  const calculateWinner = (currentBoard: Board): string | null => {
     for (let i = 0; i < WINNING_PATTERNS.length; i++) {
       const pattern = WINNING_PATTERNS[i];
-
       let countX = 0;
       let countO = 0;
 
@@ -59,9 +59,9 @@ const useTictacToe = (boardSize) => {
     return null;
   };
 
-  // handler function after clicking box
-  const handleClick = (index) => {
-    // check winner
+  // Handler function after clicking box
+  const handleClick = (index: number): void => {
+    // Check winner
     const winner = calculateWinner(board);
     if (winner || board[index]) return;
 
@@ -71,8 +71,8 @@ const useTictacToe = (boardSize) => {
     setIsXNext(!isXNext);
   };
 
-  // Hnadler function to get status message
-  const getStatusMessage = () => {
+  // Handler function to get status message
+  const getStatusMessage = (): string => {
     const winner = calculateWinner(board);
     if (winner) return `Player ${winner} wins!`;
     if (!board.includes(null)) return `It's a draw!`;
@@ -80,7 +80,7 @@ const useTictacToe = (boardSize) => {
   };
 
   // Handler function to reset the game
-  const resetGame = () => {
+  const resetGame = (): void => {
     setBoard(initialBoard(boardSize));
     setIsXNext(true);
   };

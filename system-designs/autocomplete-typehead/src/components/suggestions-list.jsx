@@ -12,6 +12,8 @@ const SuggestionsList = ({
   // Get Highlighted Text
   const getHighlightedText = (text, highlight) => {
     const parts = text.split(new RegExp(`(${highlight})`, "gi"));
+    console.log("parts:", parts);
+
     return (
       <span>
         {parts.map((part, index) =>
