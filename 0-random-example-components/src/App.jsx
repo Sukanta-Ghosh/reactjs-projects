@@ -5,6 +5,7 @@ import Todo from "./projects/todo-app/Todo";
 import "./App.css";
 import "./searchable-dropdown.css";
 import Header from "./layouts/header";
+import DataTable from "./projects/paginated-table/DataTable";
 
 function App() {
   return <RouterProvider router={router} />;
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/todo",
         element: <Todo />,
+      },
+      {
+        path: "/table",
+        element: <DataTable />,
       },
     ],
   },

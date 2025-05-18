@@ -7,6 +7,7 @@ const Header = () => {
         <NavLink to="/">Dropdown Single</NavLink>
         <NavLink to="/dropdown-multiple">Dropdown Multiple</NavLink>
         <NavLink to="/todo">Todo App</NavLink>
+        <NavLink to="/table">Paginated Table</NavLink>
       </header>
 
       {/* pages */}

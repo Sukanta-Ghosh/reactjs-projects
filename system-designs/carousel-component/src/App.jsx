@@ -4,11 +4,11 @@ import AppLayout from "./layouts/app-layout";
 
 import CarouselImages, {
   imageLoader,
-} from "./projects/carousel-products-container";
+} from "./projects/products/carousel-products-container";
 
 import SingleProductDetails, {
   singleProductsLoader,
-} from "./components-common/single-product-details";
+} from "./projects/products/single-product-details";
 
 import CarouselImagesTS from "./ts-components/carousel-products-container";
 

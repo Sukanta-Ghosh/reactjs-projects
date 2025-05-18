@@ -11,8 +11,8 @@
 
 import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import Carousel from "../carousel-util/carousel";
-import { nature_images } from "../data/nature-images";
+import Carousel from "../../carousel-util/carousel";
+import { nature_images } from "../../data/nature-images";
 
 // config
 const imgLimitAPI = 8;
