@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./searchable-dropdown.css";
 
 const optionsData = [
   { id: 1, option: "apple", selected: false },

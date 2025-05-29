@@ -3,7 +3,6 @@ import DropdownMultiple from "./projects/searchable-dropdown/dropdown-multiple-s
 import DropdownSingle from "./projects/searchable-dropdown/dropdown-single-select";
 import Todo from "./projects/todo-app/Todo";
 import "./App.css";
-import "./searchable-dropdown.css";
 import Header from "./layouts/header";
 import DataTable from "./projects/paginated-table/DataTable";
 

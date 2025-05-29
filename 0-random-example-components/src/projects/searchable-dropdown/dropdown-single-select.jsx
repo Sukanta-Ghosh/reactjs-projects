@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import "./searchable-dropdown.css";
 
 const config = ["single", "multiple"];
 const options = [
