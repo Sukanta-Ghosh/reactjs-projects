@@ -5,6 +5,7 @@ import Todo from "./projects/todo-app/Todo";
 import "./App.css";
 import Header from "./layouts/header";
 import DataTable from "./projects/paginated-table/DataTable";
+import TrafficLight from "./projects/traffic-light/TrafficLight";
 
 function App() {
   return <RouterProvider router={router} />;
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/table",
         element: <DataTable />,
+      },
+      {
+        path: "/traffic-light",
+        element: <TrafficLight />,
       },
     ],
   },

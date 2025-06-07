@@ -1,9 +1,9 @@
-import "./App.css";
 import MemoryGame from "./components/memory-game";
-import MemoryGameCourse from "./components/memory-game-course";
+//import MemoryGameCourse from "./components/memory-game-course";
+//import "./App.css";
 
 function App() {
-  return <MemoryGameCourse />;
+  return <MemoryGame />;
 }
 
 export default App;

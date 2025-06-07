@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "./memory-game-course.css";
 
 const MemoryGameCourse = () => {
   const [gridSize, setGridSize] = useState(4);
@@ -93,11 +94,11 @@ const MemoryGameCourse = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-3xl font-bold mb-6">Memory Game</h1>
-      <div className="mb-4 flex space-x-4">
+    <div className="mgc-container">
+      <h1 className="mgc-title">Memory Game</h1>
+      <div className="mgc-controls">
         <div>
-          <label htmlFor="gridSize" className="mr-2">
+          <label htmlFor="gridSize" className="mgc-label">
             Grid Size:
           </label>
           <input
@@ -107,11 +108,11 @@ const MemoryGameCourse = () => {
             max="10"
             value={gridSize}
             onChange={handleGridSizeChange}
-            className="border-2 border-gray-300 rounded px-2 py-1 w-16"
+            className="mgc-input"
           />
         </div>
         <div>
-          <label htmlFor="maxMoves" className="mr-2">
+          <label htmlFor="maxMoves" className="mgc-label">
             Max Moves (0 for unlimited):
           </label>
           <input
@@ -120,16 +121,16 @@ const MemoryGameCourse = () => {
             min="0"
             value={maxMoves}
             onChange={handleMaxMovesChange}
-            className="border-2 border-gray-300 rounded px-2 py-1 w-16"
+            className="mgc-input"
           />
         </div>
       </div>
-      <div className="mb-4 text-xl">
+      <div className="mgc-moves">
         Moves: {moves}
         {maxMoves > 0 ? ` / ${maxMoves}` : ""}
       </div>
       <div
-        className={`grid gap-2 mb-4`}
+        className="mgc-grid"
         style={{
           gridTemplateColumns: `repeat(${gridSize}, minmax(0, 1fr))`,
           width: `min(100%, ${gridSize * 5.5}rem)`,
@@ -139,13 +140,16 @@ const MemoryGameCourse = () => {
           <div
             key={card.id}
             onClick={() => handleClick(card.id)}
-            className={`aspect-square flex items-center justify-center text-xl font-bold rounded-lg cursor-pointer transition-all duration-300 ${
-              isFlipped(card.id)
-                ? isSolved(card.id)
-                  ? "bg-green-500 text-white"
-                  : "bg-blue-500 text-white"
-                : "bg-gray-300 text-gray-300"
-            } ${gameOver ? "pointer-events-none" : ""}`}
+            className={`mgc-card
+              ${
+                isFlipped(card.id)
+                  ? isSolved(card.id)
+                    ? "mgc-card-solved"
+                    : "mgc-card-flipped"
+                  : "mgc-card-hidden"
+              }
+              ${gameOver ? "mgc-card-disabled" : ""}
+            `}
           >
             {isFlipped(card.id) ? card.number : "?"}
           </div>
@@ -153,17 +157,12 @@ const MemoryGameCourse = () => {
       </div>
       {gameOver && (
         <div
-          className={`mt-4 text-4xl font-bold ${
-            won ? "text-green-600" : "text-red-600"
-          } animate-bounce`}
+          className={`mgc-result ${won ? "mgc-result-won" : "mgc-result-lost"}`}
         >
           {won ? "You Won!" : "Game Over!"}
         </div>
       )}
-      <button
-        onClick={initializeGame}
-        className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
-      >
+      <button onClick={initializeGame} className="mgc-btn">
         {gameOver ? "Play Again" : "Reset Game"}
       </button>
     </div>

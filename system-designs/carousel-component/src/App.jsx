@@ -11,6 +11,8 @@ import SingleProductDetails, {
 } from "./projects/products/single-product-details";
 
 import CarouselImagesTS from "./ts-components/carousel-products-container";
+import ImageSliceCarousel from "./carousel-util/simple-carousel/slice-carousel";
+import { nature_images } from "./data/nature-images";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,11 @@ const router = createBrowserRouter([
         path: "/products/:productId",
         element: <SingleProductDetails />,
         loader: singleProductsLoader,
+      },
+      {
+        path: "/slice-carousal",
+        element: <ImageSliceCarousel images={nature_images} />,
+        loader: imageLoader,
       },
     ],
   },

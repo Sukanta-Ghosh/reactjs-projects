@@ -1,4 +1,4 @@
-.mgc-container {
+.memory-game-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,41 +8,33 @@
     padding: 1rem;
 }
 
-.mgc-title {
-    font-size: 1.875rem;
+.memory-game-title {
+    font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
 }
 
-.mgc-controls {
+.memory-game-grid-size {
     margin-bottom: 1rem;
-    display: flex;
-    gap: 1rem;
 }
 
-.mgc-label {
+.memory-game-label {
     margin-right: 0.5rem;
 }
 
-.mgc-input {
+.memory-game-input {
     border: 2px solid #d1d5db;
     border-radius: 0.375rem;
     padding: 0.25rem 0.5rem;
-    width: 4rem;
 }
 
-.mgc-moves {
-    margin-bottom: 1rem;
-    font-size: 1.25rem;
-}
-
-.mgc-grid {
+.memory-game-grid {
     display: grid;
     gap: 0.5rem;
     margin-bottom: 1rem;
 }
 
-.mgc-card {
+.memory-game-card {
     aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
@@ -55,41 +47,30 @@
     user-select: none;
 }
 
-.mgc-card-flipped {
+.memory-game-card-flipped {
     background: #3b82f6;
     color: #fff;
 }
 
-.mgc-card-solved {
+.memory-game-card-solved {
     background: #22c55e;
     color: #fff;
 }
 
-.mgc-card-hidden {
+.memory-game-card-unflipped {
     background: #d1d5db;
-    color: #d1d5db;
+    color: #9ca3af;
 }
 
-.mgc-card-disabled {
-    pointer-events: none;
-}
-
-.mgc-result {
+.memory-game-won {
     margin-top: 1rem;
     font-size: 2.25rem;
     font-weight: bold;
-    animation: mgc-bounce 1s infinite;
-}
-
-.mgc-result-won {
     color: #16a34a;
+    animation: bounce 1s infinite;
 }
 
-.mgc-result-lost {
-    color: #dc2626;
-}
-
-@keyframes mgc-bounce {
+@keyframes bounce {
 
     0%,
     100% {
@@ -101,7 +82,7 @@
     }
 }
 
-.mgc-btn {
+.memory-game-btn {
     margin-top: 1rem;
     padding: 0.5rem 1rem;
     background: #22c55e;
@@ -112,5 +93,6 @@
     transition: background 0.2s;
 }
 
-.mgc-btn:hover {
-    background: #16a34a; }
+.memory-game-btn:hover {
+    background: #16a34a; 
+}

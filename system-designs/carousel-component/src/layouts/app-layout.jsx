@@ -11,6 +11,7 @@ const AppLayout = () => {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/products">Carousel Products</NavLink>
         <NavLink to="/products-ts">Carousel Typescript</NavLink>
+        <NavLink to="/slice-carousal">Slice Carousel</NavLink>
       </header>
 
       {isLoading && <h3>Loading...</h3>}

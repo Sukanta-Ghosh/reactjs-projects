@@ -1,9 +1,10 @@
 .container {
+    position: relative;
+    display: flex;
     max-width: 660px;
     max-height: 400px;
     width: 100%;
     margin: auto;
-    position: relative;
     background: black;
 }
 
@@ -34,6 +35,7 @@
 }
 
 .pagination {
+    position: relative;
     text-align: center;
     margin-top: 10px;
 }

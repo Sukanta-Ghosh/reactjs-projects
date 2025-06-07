@@ -1,0 +1,43 @@
+.traffic-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f3f3f3;
+}
+
+.traffic-box {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.light {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #444;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+}
+
+.light.on {
+    opacity: 1;
+}
+
+.light.red.on {
+    background-color: red;
+}
+
+.light.yellow.on {
+    background-color: yellow;
+}
+
+.light.green.on {
+    background-color: green;
+}

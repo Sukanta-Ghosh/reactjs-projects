@@ -8,6 +8,7 @@ const Header = () => {
         <NavLink to="/dropdown-multiple">Dropdown Multiple</NavLink>
         <NavLink to="/todo">Todo App</NavLink>
         <NavLink to="/table">Paginated Table</NavLink>
+        <NavLink to="/traffic-light">Traffic Light</NavLink>
       </header>
 
       {/* pages */}

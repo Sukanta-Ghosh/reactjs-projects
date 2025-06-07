@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
 
-const imgPerSlide = 2;
+const imgPerSlide = 1;
 const ImageSliceCarousel = ({ images = [] }) => {
   const [currentIdx, setCurrentIdx] = useState(0);
 
@@ -18,16 +18,23 @@ const ImageSliceCarousel = ({ images = [] }) => {
   };
 
   return (
-    <div className="container">
-      {images.slice(currentIdx, currentIdx + imgPerSlide).map((item, idx) => (
-        <img src={item.src} alt={item.alt} key={idx} className="slide-image" />
-      ))}
-      <button onClick={handlePrev} className="nav-button prev" id="Previous">
-        ⬅️
-      </button>
-      <button onClick={handleNext} className="nav-button next" id="Next">
-        ➡️
-      </button>
+    <div>
+      <div className="container">
+        {images.slice(currentIdx, currentIdx + imgPerSlide).map((item, idx) => (
+          <img
+            src={item.src}
+            alt={item.alt}
+            key={idx}
+            className="slide-image"
+          />
+        ))}
+        <button onClick={handlePrev} className="nav-button prev" id="Previous">
+          ⬅️
+        </button>
+        <button onClick={handleNext} className="nav-button next" id="Next">
+          ➡️
+        </button>
+      </div>
 
       <div className="pagination">
         {images.map((_, idx) => (
